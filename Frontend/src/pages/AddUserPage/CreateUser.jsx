@@ -84,6 +84,14 @@ const CreateUser = () => {
                 onChange={handleChange}
               />
               <input
+                type="password"
+                placeholder="Confirm Password"
+                name="password"
+                className="creation-box"
+                value={userData.confirmPassword}
+                onChange={handleChange}
+              />
+              <input
                 type="text"
                 placeholder="Role"
                 name="role"
