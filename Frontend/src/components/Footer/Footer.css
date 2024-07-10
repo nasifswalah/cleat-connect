@@ -1,0 +1,21 @@
+.footer-area .container{
+    background-color: transparent;
+}
+
+.toggle-btn{
+    display: inline-block;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+
+.toggle-btn img{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.toggle-btn img:last-child{
+    display: none;
+}

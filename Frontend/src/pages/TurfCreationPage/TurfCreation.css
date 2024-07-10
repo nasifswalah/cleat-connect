@@ -1,0 +1,124 @@
+.turf-creation-container{
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 4rem;
+}
+
+.turf-creation-form-container form{
+    max-width: 50rem;
+    padding: 2rem;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    background-color: #eceaea;
+}
+
+.turf-creation-form-container form h3{
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin: 0.6rem 0;
+    color: #03224b;
+    text-align: center;
+}
+
+.turf-creation-form-container form .create{
+    margin-right: 1rem;
+}
+
+.turf-creation-form-container form .back{
+    background-color: #929292;
+}
+
+.turf-creation-form-container form .creation-box{
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin: 0.4rem 0;
+    border-radius: 0.5rem;
+    background-color: #fff;
+}
+
+.turf-creation-display{
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.turf-creation-display-table{
+    width: 100%;
+    text-align: center;
+}
+
+.turf-creation-display-table thead{
+    background-color: #eceaea;
+}
+
+.turf-creation-display-table th{
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: #03224b;
+}
+
+.turf-creation-display-table td{
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #0DBA85;
+}
+
+.manage-btns img:first-child{
+    padding-left: 1rem;
+    cursor: pointer;
+}
+
+.manage-btns img:last-child{
+    padding-right: 1rem;
+    cursor: pointer;
+}
+
+.image-display-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #eceaea;
+    border-radius: 0.5rem;
+    max-width: 50rem;
+    margin: 1rem auto;
+}
+
+.image-display-container .uploaded-image{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.image-display-container span .delete-icon{
+    cursor: pointer;
+}
+
+.turf-creation-display .list-btn{
+    margin-bottom: 1rem;
+    color: #395479;
+    cursor: pointer;
+}
+
+@media (max-width: 990px){
+    .turf-creation-form-container form h3{
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 780px){
+    .turf-creation-display-table{
+        width: 80rem;
+    }
+
+    .turf-creation-display{
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 470px){
+    .turf-creation-form-container form h3{
+        font-size: 1rem;
+    }
+}
