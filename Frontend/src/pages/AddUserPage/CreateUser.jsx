@@ -8,7 +8,14 @@ import axios from 'axios';
 const CreateUser = () => {
 
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    contactNumber: '',
+    role: '',
+  });
 
   const handleChange = (e) => {
     setUserData({
