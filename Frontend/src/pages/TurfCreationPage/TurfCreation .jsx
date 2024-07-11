@@ -80,7 +80,7 @@ const TurfCreation = () => {
         })
         .catch((err) => {
           dispatch(setLoader(false))
-          ErrorToast("Image upload failed");
+          ErrorToast("Each image should be less than 2 mb");
         });
     } else {
       dispatch(setLoader(false))
