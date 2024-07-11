@@ -110,6 +110,7 @@ const CourtDetails = () => {
         ErrorToast("Something went wrong!");
         return;
       }
+      dispatch(setLoader(false))
       successToast(data.message);
       setOpenSlotModal(false);
     } catch (error) {
@@ -347,7 +348,7 @@ const CourtDetails = () => {
                   </div>
                   <input
                     type="button"
-                    className="btn"
+                    className="btn create"
                     value="Confirm"
                     onClick={handleBooking}
                   />
@@ -392,7 +393,7 @@ const CourtDetails = () => {
                   <input
                     type="number"
                     min={today}
-                    placeholder="Turf name"
+                    placeholder="Cost"
                     name="cost"
                     className="creation-box"
                     value={slotData.cost}
