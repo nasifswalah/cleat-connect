@@ -5,7 +5,6 @@ import "./Navbar.css";
 import bar from '../../assets/bar.svg'
 import closeIcon from '../../assets/close.svg'
 import { useSelector } from "react-redux";
-import searchIcon from '../../assets/searchIcon.svg';
 
 const Navbar = () => {
 
