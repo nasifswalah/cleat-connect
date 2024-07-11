@@ -29,13 +29,14 @@ const CreateUser = () => {
       const data = await res.data;
       if (data.success === false) {
         ErrorToast(data.message);
-
+        console.log(data);
         return;
       }
       successToast(data.message);
       navigate("/profile");
     } catch (error) {
       ErrorToast(error.message);
+      console.log(userData);
       console.log(error);
     }
   };

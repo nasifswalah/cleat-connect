@@ -59,7 +59,6 @@ const AuthPage = () => {
       });
       const data = await res.data;
       if (data.success === false) {
-        
         ErrorToast('Try again later');
         return;
       }
