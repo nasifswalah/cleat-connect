@@ -76,7 +76,7 @@ const TurfUpdation = () => {
   const handleImageUpload = () => {
     if (
       imageFiles.length > 0 &&
-      imageFiles.length + newTurfData.imageUrls.length < 7
+      imageFiles.length + updateTurfData.imageUrls.length < 7
     ) {
       const promises = [];
 
