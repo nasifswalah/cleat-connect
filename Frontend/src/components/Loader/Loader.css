@@ -1,8 +1,10 @@
 
 .loader {
-    width: 50px;
+    width: 40px;
     aspect-ratio: 1;
     display: grid;
+    z-index: 1001;
+    margin: auto;
   }
   .loader::before,
   .loader::after {    
