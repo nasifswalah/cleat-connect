@@ -95,12 +95,7 @@ form.sign-in-form {
   line-height: 1;
   font-weight: 600;
   font-size: 1rem;
-  color: #333;
-}
-
-.input-field input::placeholder {
-  color: #aaa;
-  font-weight: 500;
+  color: #333; 
 }
 
 .btn {
@@ -231,37 +226,21 @@ form.sign-in-form {
     height: 100vh;
   }
 
-  .main-conatiner:before {
-    width: 1500px;
-    height: 1500px;
-    left: 30%;
-    bottom: 68%;
-    transform: translateX(-50%);
-    right: initial;
-    top: initial;
-    transition: 2s ease-in-out;
-  }
-
   .auth-container {
     width: 100%;
-    left: 50%;
     top: 95%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
   }
 
+  .auth-container,
+  .main-conatiner.sign-up-mode .auth-container{
+    left: 50%;
+  }
+
   .panel-container {
-    z-index: 10;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 2fr 1fr;
-  }
-
-  .left-panel {
-    grid-row: 1/2;
-  }
-
-  .right-panel {
-    grid-row: 3/4;
   }
 
   .panel {
@@ -269,11 +248,27 @@ form.sign-in-form {
     justify-content: space-around;
     align-items: center;
     padding: 2.5rem 8%;
+    grid-column: 1 / 2;
+  }
+
+  .right-panel {
+    grid-row: 3/4;
+  }
+
+  .left-panel {
+    grid-row: 1/2;
+  }
+
+  .image {
+    width: 200px;
+    transition: transform 0.9s ease-in-out;
+    transition-delay: 0.6s;
   }
 
   .panel .content {
     padding-right: 15%;
-    transition: 0.9s 0.8s ease-in-out;
+    transition: transform 0.9s  ease-in-out;
+    transition-delay: 0.8s;
   }
 
   .panel h3 {
@@ -291,14 +286,15 @@ form.sign-in-form {
     font-size: 0.7rem;
   }
 
-  .image {
-    width: 200px;
-    transition: 0.9s 0.6s ease-in-out;
-  }
-
-  .right-panel .image,
-  .right-panel .content {
-    transform: translateY(300px);
+  .main-conatiner:before {
+    width: 1500px;
+    height: 1500px;
+    left: 30%;
+    bottom: 68%;
+    transform: translateX(-50%);
+    right: initial;
+    top: initial;
+    transition: 2s ease-in-out;
   }
 
   .main-conatiner.sign-up-mode:before{
@@ -312,10 +308,21 @@ form.sign-in-form {
 transform: translateY(-300px);
   }
 
+  .main-conatiner.sign-up-mode .right-panel .image,
+  .main-conatiner.sign-up-mode .right-panel .content{
+transform: translateY(0px);
+  }
+  
+  .right-panel .image,
+  .right-panel .content {
+    transform: translateY(300px);
+  }
+
+  
+
   .main-conatiner.sign-up-mode .auth-container{
     top: 5%;
     transform: translate(-50%, 0);
-    left: 50%;
   }
 }
 
@@ -330,6 +337,10 @@ transform: translateY(-300px);
 
     .panel .content{
         padding: 0.5rem 1rem;
+    }
+
+    .main-conatiner {
+      padding: 1.5rem;
     }
 
     .main-conatiner:before{

@@ -95,7 +95,7 @@ const AuthPage = () => {
         <div className="form-conatiner">
           <div className="auth-container">
             <form onSubmit={handleSignIn} className="sign-in-form ">
-              <h2 className="auth-title">Sign in</h2>
+              <h3 className="auth-title">Sign in</h3>
               <div className="input-field">
                 <img src={userIcon} alt="" />
                 <input
