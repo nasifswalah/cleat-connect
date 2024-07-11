@@ -1,16 +1,23 @@
+.loader-container{
+    position: fixed;
+    inset: 0px 0px 0px 0px;
+    background-color: rgba(0, 0, 0, 0.644);
+    z-index: 1001;
+}
 
 .loader {
     width: 40px;
     aspect-ratio: 1;
     display: grid;
-    z-index: 1001;
     margin: auto;
+    position: fixed;
+    inset: 0px 0px 0px 0px;
   }
   .loader::before,
   .loader::after {    
     content:"";
     grid-area: 1/1;
-    --c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+    --c:no-repeat radial-gradient(farthest-side,#25b09b 50%,#0000);
     background: 
       var(--c) 50%  0, 
       var(--c) 50%  100%, 

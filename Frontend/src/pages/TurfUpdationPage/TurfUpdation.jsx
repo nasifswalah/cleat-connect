@@ -37,12 +37,12 @@ const TurfUpdation = () => {
         const res = await axios.get(`/api/user/get-turf/${turfId}`);
         const data = await res.data;
         if (data.success === false) {
-          ErrorToast(data.message);
+          ErrorToast("Something went wrong!");
           return;
         }
         setUpdateTurfData(data.data);
       } catch (error) {
-        ErrorToast(error.message);
+        ErrorToast('Server error!');
       }
     };
     fetchUpdates();
@@ -74,6 +74,7 @@ const TurfUpdation = () => {
   };
 
   const handleImageUpload = () => {
+    dispatch(setLoader(true))
     if (
       imageFiles.length > 0 &&
       imageFiles.length + updateTurfData.imageUrls.length < 7
@@ -89,12 +90,14 @@ const TurfUpdation = () => {
             ...updateTurfData,
             imageUrls: updateTurfData.imageUrls.concat(urls),
           });
+          dispatch(setLoader(false))
         })
         .catch((err) => {
+          dispatch(setLoader(false))
           ErrorToast("Image upload failed");
-          console.log(err);
         });
     } else {
+      dispatch(setLoader(false))
       ErrorToast("Upload less than 7 images");
     }
   };
@@ -114,9 +117,11 @@ const TurfUpdation = () => {
   };
 
   const handleTurfUpdation = async (e) => {
+    dispatch(setLoader(true))
     e.preventDefault();
     try {
       if (updateTurfData.imageUrls.length < 1) {
+        dispatch(setLoader(false))
         ErrorToast("Upload at least one image");
         return;
       }
@@ -127,15 +132,16 @@ const TurfUpdation = () => {
       });
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
-        console.log(data);
+        dispatch(setLoader(false))
+        ErrorToast("Something went wrong!");
         return;
       }
+      dispatch(setLoader(false))
       successToast(data.message);
       navigate("/profile");
     } catch (error) {
-      ErrorToast(error.message);
-      console.log(error);
+      dispatch(setLoader(false))
+      ErrorToast('Server error!');
     }
   };
 

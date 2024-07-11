@@ -3,8 +3,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import { ErrorToast, successToast } from "../../constants/toast.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLoader } from "../../redux/userSlice.js";
 
 const CreateUser = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
@@ -24,20 +27,21 @@ const CreateUser = () => {
 
   const handleUserCreation = async (e) => {
     e.preventDefault();
+    dispatch(setLoader(true));
     try {
       const res = await axios.post("/api/admin/create-user", userData);
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
-        console.log(data);
+        dispatch(setLoader(false));
+        ErrorToast("Something went wrong!");
         return;
       }
+      dispatch(setLoader(false));
       successToast(data.message);
       navigate("/profile");
     } catch (error) {
-      ErrorToast(error.message);
-      console.log(userData);
-      console.log(error);
+      dispatch(setLoader(false));
+      ErrorToast('Server error!');
     }
   };
 

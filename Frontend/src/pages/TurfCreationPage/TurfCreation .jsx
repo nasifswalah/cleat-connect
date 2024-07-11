@@ -4,7 +4,7 @@ import editIcon from "../../assets/editIcon.svg";
 import deleteIcon from "../../assets/deleteIcon.svg";
 import Navbar from "../../components/Navbar/Navbar";
 import { ErrorToast, successToast } from "../../constants/toast.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getDownloadURL,
   getStorage,
@@ -14,8 +14,10 @@ import {
 import { app } from "../../constants/firebase.js";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setLoader } from "../../redux/userSlice.js";
 
 const TurfCreation = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -58,6 +60,7 @@ const TurfCreation = () => {
   };
 
   const handleImageUpload = () => {
+    dispatch(setLoader(true))
     if (
       imageFiles.length > 0 &&
       imageFiles.length + newTurfData.imageUrls.length < 7
@@ -73,12 +76,14 @@ const TurfCreation = () => {
             ...newTurfData,
             imageUrls: newTurfData.imageUrls.concat(urls),
           });
+          dispatch(setLoader(false))
         })
         .catch((err) => {
+          dispatch(setLoader(false))
           ErrorToast("Image upload failed");
-          console.log(err);
         });
     } else {
+      dispatch(setLoader(false))
       ErrorToast("Upload less than 7 images");
     }
   };
@@ -99,8 +104,10 @@ const TurfCreation = () => {
 
   const handleTurfCreation = async (e) => {
     e.preventDefault();
+    dispatch(setLoader(true));
     try {
       if (newTurfData.imageUrls.length < 1) {
+        dispatch(setLoader(false))
         ErrorToast("Upload at least one image");
         return;
       }
@@ -111,48 +118,56 @@ const TurfCreation = () => {
       });
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
-        console.log(data);
+        dispatch(setLoader(false))
+        ErrorToast("Something went wrong!");
         return;
       }
+      dispatch(setLoader(false))
       successToast(data.message);
       navigate("/profile");
     } catch (error) {
-      ErrorToast(error.message);
-      console.log(error);
+      dispatch(setLoader(false))
+      ErrorToast('Server error!');
     }
   };
 
   const handleTurfDisplay = async () => {
+    dispatch(setLoader(true))
     try {
       setOpenDisplay(true);
       const res = await axios.get("/api/admin/get-my-turf");
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
-        console.log(data);
+        dispatch(setLoader(false))
+        ErrorToast("Something went wrong!");
         return;
       }
       setCreatedTurfData(data.data);
+      dispatch(setLoader(false))
     } catch (error) {
-      ErrorToast(error.message);
+      dispatch(setLoader(false))
+      ErrorToast('Server error!');
     }
   };
 
   const handleTurfDeletion = async (turfId) => {
+    dispatch(setLoader(true))
     try {
       const res = await axios.delete(`/api/admin/delete-turf/${turfId}`);
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
+        dispatch(setLoader(false))
+        ErrorToast("Something went wrong!");
         return;
       }
-      successToast(data.message);
       setCreatedTurfData((prev) =>
         prev.filter((listing) => listing._id !== turfId)
       );
+      dispatch(setLoader(false))
+      successToast(data.message);
     } catch (error) {
-      ErrorToast(error.message);
+      dispatch(setLoader(false))
+      ErrorToast('Server error!');
     }
   };
 

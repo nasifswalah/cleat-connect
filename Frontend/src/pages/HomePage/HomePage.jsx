@@ -16,25 +16,31 @@ import instagramIcon from "../../assets/instagram.svg"
 import { ErrorToast } from "../../constants/toast";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { setLoader } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 
 
 const HomePage = () => {
-
+  const dispatch = useDispatch();
   const [turfData, setTurfData] = useState([]);
 
   useEffect(() => {
     const fetchUpdates = async () => {
+      dispatch(setLoader(true))
       try {
         const res = await axios.get('/api/user/get-turfs');
         const data = await res.data;
         if (data.success === false) {
+          dispatch(setLoader(false))
           ErrorToast('Failed to load');
           return;
         }
         setTurfData(data.data);
+        dispatch(setLoader(false))
       } catch (error) {
-        ErrorToast(error.message);
+        dispatch(setLoader(false))
+        ErrorToast('Server error!');
       }
     };
     fetchUpdates();

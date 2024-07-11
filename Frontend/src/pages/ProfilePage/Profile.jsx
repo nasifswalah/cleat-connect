@@ -24,16 +24,16 @@ const Profile = () => {
       const res = await axios.get("/api/auth/logout");
       const data = await res.data;
       if (data.success === false) {
-        dispatch(signOutUserFailure(data.message));
-        ErrorToast(data.message);
+        dispatch(signOutUserFailure());
+        ErrorToast("Something went wrong!");
         return;
       }
-      dispatch(signOutUserSuccess(data));
+      dispatch(signOutUserSuccess());
       successToast(data.message);
       navigate('/homepage');
     } catch (error) {
-      dispatch(signOutUserFailure(error.message));
-      ErrorToast(error.message);
+      dispatch(signOutUserFailure());
+      ErrorToast('Server error!');
     }
   };
 
@@ -45,9 +45,6 @@ const Profile = () => {
         <div className="card-header">
           <div className="card-main">
             <div className="profile-image">
-              <div className="upload-image">
-                <img src={cameraIcon} alt="camera icon" />
-              </div>
             </div>
             <h3 className="username">{currentUser.data.name}</h3>
             <p className="user-subname">{currentUser.data.role}</p>

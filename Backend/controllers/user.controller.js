@@ -100,7 +100,14 @@ export const searchCourts = async (req, res, next) => {
 
     const searchResult = await Turfs.find({ name : { $regex: searchTerm, $options: 'i'}});
 
-    res.status(200).json(searchResult);
+    if(!searchResult){
+      return next(errorHandler(404, 'No such data'));
+    }
+
+    res.status(200).json({
+      success: true,
+      data: searchResult
+    });
   } catch (error) {
     next(error);
   }

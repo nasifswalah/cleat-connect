@@ -65,7 +65,7 @@ const AuthPage = () => {
       setModeChanger("sign-in-mode");
       successToast(data.message);
     } catch (error) {
-      ErrorToast(error.message);
+      ErrorToast('Server error!');
     }
   };
 
@@ -76,7 +76,7 @@ const AuthPage = () => {
       const res = await axios.post("/api/auth/login", signInData);
       const data = await res.data;
       if (data.success === false) {
-        dispatch(signinFailure(data.message));
+        dispatch(signinFailure());
         ErrorToast('Try again later')
         return;
       }
@@ -84,8 +84,8 @@ const AuthPage = () => {
       successToast(data.message);
       navigate("/homepage");
     } catch (error) {
-      dispatch(signinFailure(error.message));
-      ErrorToast(error.message)
+      dispatch(signinFailure());
+      ErrorToast('Server error!')
     }
   };
   return (

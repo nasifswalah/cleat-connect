@@ -7,12 +7,12 @@ import { ErrorToast, successToast } from "../../constants/toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { TIMINGS } from "../../constants/timings.js";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import logo from "../../assets/Cleat logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoader } from "../../redux/userSlice.js";
 
 const CourtDetails = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const today = new Date().toISOString().split("T")[0];
 
   const { currentUser } = useSelector((state) => state.user);
@@ -34,21 +34,24 @@ const CourtDetails = () => {
   const [availableSlots, setAvailableSlots] = useState([]);
   const [bookingDate, setBookingDate] = useState(today);
   const [bookedSlots, setBookedSlots] = useState([]);
-  const [slotName, setSlotName] = useState([]);
 
   useEffect(() => {
     const fetchUpdates = async () => {
+      dispatch(setLoader(true))
       const turfId = params.turfId;
       try {
         const res = await axios.get(`/api/user/get-turf/${turfId}`);
         const data = await res.data;
         if (data.success === false) {
+          dispatch(setLoader(false))
           ErrorToast('Failed to load details');
           return;
         }
         setSelectedTurfData(data.data);
+        dispatch(setLoader(false))
       } catch (error) {
-        ErrorToast(error.message);
+        dispatch(setLoader(false))
+        ErrorToast('Server error!');
       }
     };
     fetchUpdates();
@@ -62,12 +65,12 @@ const CourtDetails = () => {
         });
         const data = await res.data;
         if (data.success === false) {
-          ErrorToast('Slots not listed yet');
+          ErrorToast('Slots are not listed yet');
           return;
         }
         setAvailableSlots(data.data);
       } catch (error) {
-        ErrorToast(error.message);
+        ErrorToast('Server error!');
       }
     };
     fetchSlots();
@@ -85,12 +88,17 @@ const CourtDetails = () => {
 
   const handleSlotCreation = async (e) => {
     e.preventDefault();
+    dispatch(setLoader(true))
     try {
       if (slotData.startDate === "" || slotData.endDate === "") {
-        return ErrorToast("Enter a valid date");
+        dispatch(setLoader(false));
+        ErrorToast("Enter a valid date");
+        return 
       } else if (slotData.cost === "") {
-        return ErrorToast("Enter the cost");
-      }
+        dispatch(setLoader(false))
+        ErrorToast("Enter the cost");
+        return 
+      } 
       const res = await axios.post("/api/manager/create-slot", {
         ...slotData,
         turfId: params.turfId,
@@ -98,14 +106,15 @@ const CourtDetails = () => {
       });
       const data = await res.data;
       if (data.success === false) {
-        ErrorToast(data.message);
-        console.log(data);
+        dispatch(setLoader(false))
+        ErrorToast("Something went wrong!");
         return;
       }
       successToast(data.message);
       setOpenSlotModal(false);
     } catch (error) {
-      ErrorToast(error.message);
+      dispatch(setLoader(false))
+      ErrorToast("Sever error!");
     }
   };
 
@@ -131,7 +140,7 @@ const CourtDetails = () => {
     );
 
     if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
+      ErrorToast("Razorpay SDK failed to load. Are you online?");
       return;
     }
 
@@ -212,6 +221,7 @@ const CourtDetails = () => {
   }
 
   const handleConfirmationMail = async () => {
+    dispatch(setLoader(true))
     try {
       const res = await axios.post('/api/booking/confirmation', {
         userName: currentUser.data.name,
@@ -221,16 +231,24 @@ const CourtDetails = () => {
       });
       const data = await res.data;
       if (!data){
+        dispatch(setLoader(false))
         ErrorToast('Try again later');
         return;
       }
+      dispatch(setLoader(false))
       successToast('Check your mail for confirmation');
       setOpenMessageModal(false);
       location.reload();
     } catch (error) {
-      ErrorToast(error.message);
+      dispatch(setLoader(false))
+      ErrorToast('Server error!');
     }
   };
+
+  const handleCancel = () => {
+    setOpenSlotModal(false);
+    location.reload();
+  }
 
   return (
     <>
@@ -406,7 +424,7 @@ const CourtDetails = () => {
                   <input
                     type="button"
                     className="btn cancel"
-                    onClick={() => setOpenSlotModal(false)}
+                    onClick={handleCancel}
                     value="Cancel"
                   />
                 </form>

@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import cleatLogo from '../../assets/Cleat logo.png'
 import "./LandingPage.css";
-import Loader from "../../components/Loader/Loader";
+
 
 const LandingPage = () => {
   return (
     <main>
       <div className="big-wrapper">
         <Navbar />
-        <Loader/>
+      
         <div className="showcase-area">
           <div className="container">
             <div className="left">
