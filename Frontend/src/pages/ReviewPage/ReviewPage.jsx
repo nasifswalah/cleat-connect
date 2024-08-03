@@ -24,11 +24,8 @@ const ReviewPage = () => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-        console.log('working')
-        console.log(turfId)
       dispatch(setLoader(true));
       try {
-        console.log(turfId)
         const res = await axios.get(`/api/user/get-review/${turfId}`);
         const data = await res.data;
         if (data.success !== true) {
@@ -77,7 +74,8 @@ const ReviewPage = () => {
   };
 
   return (
-    <div className="review-container">
+    <div className="listing-container">
+      <h3 className={`listing-title ${darkMode ? "dark-mode-text" : ""}`}>Reviews & Ratings</h3>
       <form className={`review-form ${darkMode ? 'dark-mode' : ''}`} onSubmit={handleReviewPosting}>
         <input
           type="textarea"

@@ -1,0 +1,52 @@
+.listing-container{
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 4rem;
+}
+
+.booking-form{
+    max-width: 55rem;
+    padding: 1.5rem;
+    margin: 0  auto;
+    border-radius: 0.5rem;
+    background-color: #eceaea;
+    margin-top: 1.5rem;
+    box-shadow: 0px 0px 10px #fff;
+}
+
+.bookingsDisplay{
+    max-height: 70vh;
+    background-color: #eceaea;
+    overflow-x: scroll;
+}
+
+.bookings{
+    margin-bottom: 0.5rem;
+    border: 1px solid black;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.bookings p{
+    font-size: 12px;
+}
+
+.listing-title{
+    text-align: center;
+    color: #03224b;
+    transition: all ease-in-out .3s;
+}
+
+@media (max-width: 990px){
+    .listing-title{
+        font-size: 1.3rem;
+    }
+}
+
+
+@media (max-width: 470px){
+    .listing-title{
+        font-size: 1rem;
+    }
+}

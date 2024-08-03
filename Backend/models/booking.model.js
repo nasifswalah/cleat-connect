@@ -9,7 +9,15 @@ const bookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  turfName: {
+    type: String,
+    required: true,
+  },
   timeSlotIds: {
+    type: Array,
+    required: true,
+  },
+  timeSlotNames: {
     type: Array,
     required: true,
   },

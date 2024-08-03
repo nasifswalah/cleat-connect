@@ -7,6 +7,7 @@ import {
   listBookings,
   postReview,
   searchCourts,
+  viewBookings,
 } from "../controllers/user.controller.js";
 import { userAuthorization } from "../utils/authorization.js";
 
@@ -18,6 +19,7 @@ router.get("/get-slots", userAuthorization, getTimeSlots);
 router.post("/list-bookings", userAuthorization, listBookings);
 router.get('/search-booking', searchCourts);
 router.post('/post-review', userAuthorization, postReview);
-router.get('/get-review/:id', getReview);
+router.get('/get-review/:id', userAuthorization, getReview);
+router.get('/view-bookings', userAuthorization, viewBookings);
 
 export default router;

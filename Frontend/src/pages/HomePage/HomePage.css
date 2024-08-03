@@ -156,12 +156,11 @@ section {
 
 .court-content img:hover {
   transform: scale(1.03);
-
 }
 
 .courts-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   gap: 2rem;
   align-items: center;
   margin-top: 2rem;

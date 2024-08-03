@@ -1,3 +1,4 @@
+import Bookings from "../models/booking.model.js";
 import Review from "../models/review.model.js";
 import Slots from "../models/slots.model.js";
 import Turfs from "../models/turf.model.js";
@@ -139,5 +140,21 @@ export const getReview = async (req, res, next) => {
     })
   } catch (error) {
     next(error)
+  }
+}
+
+export const viewBookings = async (req, res, next) => {
+  try {
+    const bookings = await Bookings.find({bookedBy : req.user._id});
+    if(!bookings){
+      return next(errorHandler(404, 'No bookings'));
+    }
+
+    res.status(200).json({
+      success: true,
+      data: bookings
+    });
+  } catch(error) {
+    next(error);
   }
 }

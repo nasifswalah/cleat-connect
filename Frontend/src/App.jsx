@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import ReviewPage from "./pages/ReviewPage/ReviewPage";
 import Navbar from "./components/Navbar/Navbar";
+import Bookings from "./pages/BookingsPage/Bookings";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
           {
             path: "/turf-details/:turfId/review",
             element: <ReviewPage />,
+          },
+          {
+            path: "/view-bookings",
+            element: <Bookings />,
           },
         ],
       },

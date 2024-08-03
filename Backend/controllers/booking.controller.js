@@ -8,7 +8,7 @@ import nodemailer from 'nodemailer';
 
 export const bookings = async (req, res, next) => {
   try {
-    const { turfId, timeSlotIds } = req.body;
+    const { turfId, timeSlotIds, turfName, timeSlotNames } = req.body;
 
     const slotData = await Slots.find({ _id: { $in: timeSlotIds } });
     let totalCost = 0;
@@ -24,6 +24,8 @@ export const bookings = async (req, res, next) => {
     const newBooking = await Bookings({
       turfId,
       timeSlotIds,
+      timeSlotNames,
+      turfName,
       bookedBy: req.user._id,
       totalCost: totalCost,
       paymentStatus: "Pending",
@@ -63,7 +65,9 @@ export const success = async (req, res, next) => {
       razorpaySignature,
       receipt,
       timeSlotIds,
+      timeSlotNames,
       turfId,
+      turfName,
       bookingDate,
     } = req.body;
 
@@ -88,7 +92,8 @@ export const success = async (req, res, next) => {
         $set: {
           paymentStatus: "Paid",
           bookedBy: req.user._id,
-          turfId: turfId,
+          turfId,
+          turfName,
           bookingDate: new Date(bookingDate),
         },
       }

@@ -153,9 +153,18 @@ const CourtDetails = () => {
     const slotIds = bookedSlots.map((ele) => {
       return ele._id;
     });
+    
+    const slotNames = bookedSlots.map((ele) => {
+      return ele.slot.name;
+    });
+
+    const turfName = selectedTurfData.name;
+  
     const result = await axios.post("/api/booking/book-slot", {
       turfId: params.turfId,
       timeSlotIds: slotIds,
+      timeSlotNames: slotNames,
+      turfName: turfName,
     });
 
     if (!result) {
@@ -183,6 +192,7 @@ const CourtDetails = () => {
           receipt,
           timeSlotIds: slotIds,
           turfId: params.turfId,
+          turfName: turfName,
           bookingDate,
         };
 
