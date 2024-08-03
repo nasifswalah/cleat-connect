@@ -80,7 +80,7 @@ header {
   margin-right: 1.2rem;
 }
 
-.links .nav-link {
+.links .nav-link , .darkener {
   color: #03224b;
   display: inline-block;
   font-size: 0.9rem;
@@ -90,6 +90,12 @@ header {
   padding: 10px 15px;
   border-radius: 50px;
 }
+
+.darkener{
+  cursor: pointer;
+  margin-top: 0.3rem;
+}
+
 
 .links .nav-link:hover {
   background-color: #0dba85;
@@ -150,7 +156,7 @@ header {
     transition: 0.5s;
   }
 
-  .links .nav-link {
+  .links .nav-link, .darkener {
     color: #fff;
   }
 

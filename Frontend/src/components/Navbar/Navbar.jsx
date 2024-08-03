@@ -6,6 +6,7 @@ import bar from "../../assets/bar.svg";
 import closeIcon from "../../assets/close.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode } from "../../redux/userSlice";
+import { FaRegMoon } from "react-icons/fa";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -43,12 +44,6 @@ const Navbar = () => {
 
           <div className="links">
             <ul>
-              <li onClick={() => {dispatch(setDarkMode(!darkMode))}}
-              >
-                <Link to="#" className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}>
-                  Dark mode
-                </Link>
-              </li>
               <li>
                 <Link to="/homepage" className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}>
                   Home
@@ -72,6 +67,10 @@ const Navbar = () => {
                 >
                   {currentUser ? "Profile" : "Register"}
                 </Link>
+              </li>
+              <li className={`darkener ${darkMode ? 'dark-mode-text' : ''}`} onClick={() => {dispatch(setDarkMode(!darkMode))}}
+              >
+                  <FaRegMoon size={15}/>
               </li>
             </ul>
           </div>
