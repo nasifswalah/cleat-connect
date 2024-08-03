@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import React, { useState } from "react";
 import "./SearchDisplay.css";
 import searchIcon from "../../assets/searchIcon.svg";
 import axios from "axios";
@@ -35,7 +34,6 @@ const SearchDisplay = () => {
 
   return (
     <>
-      <Navbar />
       <section>
         <div className="search-area-container">
           <div className="search-area">

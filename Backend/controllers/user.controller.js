@@ -1,3 +1,4 @@
+import Review from "../models/review.model.js";
 import Slots from "../models/slots.model.js";
 import Turfs from "../models/turf.model.js";
 import { errorHandler } from "../utils/error.handler.js";
@@ -110,5 +111,33 @@ export const searchCourts = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+}
+
+export const postReview = async (req, res, next) => {
+  try {
+    const reviewData = await Review.create(req.body);
+    res.status(201).json({
+      success: true,
+      message: 'Review Posted',
+      data: reviewData
+    });
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getReview = async (req, res, next) => {
+  try {
+    const turfId = req.params.id;
+    if(!turfId) return next(errorHandler(404, 'No reviews posted yet'));
+
+    const reviews = await Review.find({postedFor:turfId});
+    res.status(200).json({
+      success: true,
+      data: reviews
+    })
+  } catch (error) {
+    next(error)
   }
 }

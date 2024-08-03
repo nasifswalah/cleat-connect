@@ -11,7 +11,10 @@
     margin: 0 auto;
     border-radius: 0.5rem;
     background-color: #eceaea;
+    box-shadow: 0px 0px 10px #fff;
+    transition: all ease-in-out .3s;
 }
+
 
 .turf-creation-form-container form h3{
     text-transform: uppercase;
@@ -48,7 +51,7 @@
 }
 
 .turf-creation-display-table thead{
-    background-color: #eceaea;
+    background-color: #b4b4b4;
 }
 
 .turf-creation-display-table th{
@@ -61,6 +64,7 @@
     padding: 0.5rem;
     font-size: 0.9rem;
     border-bottom: 1px solid #0DBA85;
+    color: black;
 }
 
 .manage-btns img:first-child{
@@ -82,6 +86,8 @@
     border-radius: 0.5rem;
     max-width: 50rem;
     margin: 1rem auto;
+    box-shadow: 0px 0px 10px #fff;
+    transition: all ease-in-out .3s;
 }
 
 .image-display-container .uploaded-image{
@@ -99,6 +105,7 @@
     margin-bottom: 1rem;
     color: #395479;
     cursor: pointer;
+    transition: all ease-in-out .3s;
 }
 
 @media (max-width: 990px){

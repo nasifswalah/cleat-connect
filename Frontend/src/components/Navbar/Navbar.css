@@ -41,7 +41,12 @@ header .container {
 
 .scrollEffect{
   background-color: #fff;
-  box-shadow: 0px 0px 10px #00000063;
+  box-shadow: 0px 1px 10px rgba(197, 197, 197, 0.897);
+}
+
+.darkScrollEffect{
+  background-color: #252525;
+  box-shadow: 0px 1px 10px rgba(197, 197, 197, 0.897);
 }
 
 
@@ -65,6 +70,7 @@ header {
   font-size: 1.5rem;
   line-height: 1.2;
   font-weight: 700;
+  transition: all ease-in-out .3s;
 }
 
 .links ul {
@@ -87,7 +93,7 @@ header {
 
 .links .nav-link:hover {
   background-color: #0dba85;
-  color: #fff;
+  color: #fff !important;
   box-shadow: 5px 10px 30px rgb(85 85 85 / 20%);
   border-radius: 50px;
 }
@@ -135,7 +141,7 @@ header {
     max-width: 450px;
     width: 100%;
     height: 100%;
-    background-color: #0dba85;
+    background-color: #057e59;
     z-index: 95;
     display: flex;
     align-items: center;

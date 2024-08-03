@@ -16,62 +16,81 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ReviewPage from "./pages/ReviewPage/ReviewPage";
+import Navbar from "./components/Navbar/Navbar";
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/auth",
-    element: <AuthPage />,
-  },
-  {
-    path: "/homepage",
-    element: <HomePage />,
-  },
-  {
-    element: <AdminRoute />,
-    children: [
+    element: <Navbar/>,
+    children:[
       {
-        path: "/create-new-turf",
-        element: <TurfCreation />,
+        path: "/",
+        element: <LandingPage />,
       },
       {
-        path: "/create-new-user",
-        element: <CreateUser />,
+        path: "/auth",
+        element: <AuthPage />,
       },
       {
-        path: "/update-turf/:turfId",
-        element: <TurfUpdation />,
-      },
-    ],
-  },
-  {
-    element: <UserRoute />,
-    children: [
-      {
-        path: "/profile",
-        element: <Profile />,
+        path: "/homepage",
+        element: <HomePage />,
       },
       {
-        path: "/turf-details/:turfId",
-        element: <CourtDetails />,
+        element: <AdminRoute />,
+        children: [
+          {
+            path: "/create-new-turf",
+            element: <TurfCreation />,
+          },
+          {
+            path: "/create-new-user",
+            element: <CreateUser />,
+          },
+          {
+            path: "/update-turf/:turfId",
+            element: <TurfUpdation />,
+          },
+        ],
       },
-    ],
-  },
-  {
-    path: "/search-display",
-    element: <SearchDisplay />,
-  },
-  {
-    path: "/aboutUs",
-    element: <AboutPage />,
-  },
+      {
+        element: <UserRoute />,
+        children: [
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/turf-details/:turfId",
+            element: <CourtDetails />,
+          },
+          {
+            path: "/turf-details/:turfId/review",
+            element: <ReviewPage />,
+          },
+        ],
+      },
+      {
+        path: "/search-display",
+        element: <SearchDisplay />,
+      },
+      {
+        path: "/aboutUs",
+        element: <AboutPage />,
+      },
+    ]
+  }
+  
 ]);
 
 const App = () => {
-  const { loading } = useSelector((state) => state.user);
+  const { loading, darkMode } = useSelector((state) => state.user);
+  const body = document.getElementById('body');
+
+if(darkMode === true) {
+  body.classList.add('dark-mode')
+} else {
+  body.classList.remove('dark-mode')
+}
   return (
     <>
       <ToastContainer />

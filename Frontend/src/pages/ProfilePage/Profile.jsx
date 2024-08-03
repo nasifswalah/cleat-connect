@@ -1,11 +1,8 @@
 import React from "react";
 import "./Profile.css";
-import cameraIcon from "../../assets/cameraIcon.svg";
 import addUserIcon from "../../assets/addUserIcon.svg"
 import addNewCourtIcon from "../../assets/addNewCourt.svg"
-import showMyCourtIcon from "../../assets/showMyCourtIcon.svg"
 import logoutIcon from "../../assets/logoutIcon.svg"
-import Navbar from "../../components/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {signOutUserStart, signOutUserSuccess, signOutUserFailure} from '../../redux/userSlice.js'
@@ -14,7 +11,7 @@ import axios from "axios";
 
 const Profile = () => {
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, darkMode } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -39,9 +36,8 @@ const Profile = () => {
 
   return (
     <>
-    <Navbar/>
     <div className="card-container">
-      <div className="card">
+      <div className={`card ${darkMode ? 'dark-mode' : ''}`}>
         <div className="card-header">
           <div className="card-main">
             <div className="profile-image">
@@ -53,9 +49,9 @@ const Profile = () => {
         <div className="card-content">
           <div className="left-content">
             <div className="profile-container">
-              <h3 className="detail-title">Email</h3>
+              <h3 className={`detail-title ${darkMode ? 'dark-mode-text' : ''}`}>Email</h3>
               <p className="detail-data">{currentUser.data.email}</p>
-              <h3 className="detail-title">Mobile Number</h3>
+              <h3 className={`detail-title ${darkMode ? 'dark-mode-text' : ''}`}>Mobile Number</h3>
               <p className="detail-data">{currentUser.data.contactNumber}</p>
             </div>
             <div className="buttons-container">

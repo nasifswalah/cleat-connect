@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./TurfCreation.css";
 import editIcon from "../../assets/editIcon.svg";
 import deleteIcon from "../../assets/deleteIcon.svg";
-import Navbar from "../../components/Navbar/Navbar";
 import { ErrorToast, successToast } from "../../constants/toast.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,7 +17,7 @@ import { setLoader } from "../../redux/userSlice.js";
 
 const TurfCreation = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, darkMode } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const [imageFiles, setImageFiles] = useState([]);
@@ -173,11 +172,10 @@ const TurfCreation = () => {
 
   return (
     <>
-      <Navbar />
       <div className="turf-creation-container">
         <div className="turf-creation-form-container">
-          <form>
-            <h3>Create New Turf</h3>
+          <form className={`${darkMode ? 'dark-mode' : ''}`}>
+            <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Create New Turf</h3>
             <input
               type="text"
               placeholder="Turf name"
@@ -270,7 +268,7 @@ const TurfCreation = () => {
           ))}
 
         <div className="turf-creation-display">
-          <h4 className="list-btn" onClick={handleTurfDisplay}>
+          <h4 className={`list-btn ${darkMode ? 'dark-mode-text' : ''}`} onClick={handleTurfDisplay}>
             Show turf
           </h4>
           {openDisplay && (

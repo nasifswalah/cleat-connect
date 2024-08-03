@@ -8,6 +8,9 @@ export const adminAuthorization = (req, res, next) => {
     if (!token) return next(errorHandler(401, "Unauthorized"));
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+      if (err) {
+        return next(errorHandler(403, "Forbidden"));
+      }
       if (decodedToken && decodedToken._doc.role === "admin") {
         req.user = decodedToken._doc;
         next();
@@ -28,6 +31,9 @@ export const managerAuthorization = (req, res, next) => {
     if (!token) return next(errorHandler(401, "Unauthorized"));
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+      if (err) {
+        return next(errorHandler(403, "Forbidden"));
+      }
       if (decodedToken && decodedToken._doc.role === "manager") {
         req.user = decodedToken._doc;
         next();
@@ -47,6 +53,11 @@ export const userAuthorization = (req, res, next) => {
     if (!token) return next(errorHandler(401, "Unauthorized"));
 
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+
+      if (err) {
+        return next(errorHandler(403, "Forbidden"));
+      }
+
       if (decodedToken) {
         req.user = decodedToken._doc;
         next();

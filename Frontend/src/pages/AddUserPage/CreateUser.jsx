@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import { ErrorToast, successToast } from "../../constants/toast.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoader } from "../../redux/userSlice.js";
 
 const CreateUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { darkMode } = useSelector((state) => state.user);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -47,11 +47,10 @@ const CreateUser = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="turf-creation-container add-user-form">
-        <div className="turf-creation-form-container">
-          <form>
-            <h3>Add New User</h3>
+      <div className='turf-creation-container'>
+        <div className='turf-creation-form-container'>
+          <form className={`${darkMode ? 'dark-mode' : ''}`}>
+            <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Add New User</h3>
             <input
               type="text"
               placeholder="Name"

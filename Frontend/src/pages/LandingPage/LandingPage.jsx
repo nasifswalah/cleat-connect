@@ -1,23 +1,21 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
 import cleatLogo from '../../assets/Cleat logo.png'
 import "./LandingPage.css";
+import { useSelector } from "react-redux";
 
 
 const LandingPage = () => {
+  const {darkMode} = useSelector((state) => state.user);
   return (
     <main>
-      <div className="big-wrapper">
-        <Navbar />
-      
+      <div className={`big-wrapper ${darkMode ? 'dark-mode' : ''}`}>
         <div className="showcase-area">
           <div className="container">
             <div className="left">
               <div className="landing-title">
-                <h3>Elevate Your Game </h3>
-                <h3>with Cleat Connect</h3>
+                <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Elevate Your Game </h3>
+                <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>with Cleat Connect</h3>
               </div>
               <div className="text">
                 <p>

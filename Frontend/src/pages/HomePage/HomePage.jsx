@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import "./HomePage.css";
 import AdImage1 from '../../assets/Ad1.png'
 import AdImage2 from '../../assets/Ad2.png'
@@ -17,13 +16,14 @@ import { ErrorToast } from "../../constants/toast";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { setLoader } from "../../redux/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [turfData, setTurfData] = useState([]);
+  const { darkMode } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchUpdates = async () => {
@@ -48,7 +48,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
       <section className="home" id="home">
         <div className="home-text">
           <h1>
@@ -59,33 +58,33 @@ const HomePage = () => {
 
       <section className="type-container" id="category">
         <div className="type-text">
-          <h2>
+          <h2 className={`${darkMode ? 'dark-mode-text' : ''}`}>
             Start your game with <br /> lots of services
           </h2>
         </div>
 
         <div className="row-items">
-          <div className="container-box">
+          <div className={`container-box ${darkMode ? 'dark-mode' : ''}`}>
             <div className="container-image">
               <img src={circketImage} alt="" />
             </div>
             <h4>Cricket Pitch</h4>
           </div>
-          <div className="container-box">
+          <div className={`container-box ${darkMode ? 'dark-mode' : ''}`}>
             <div className="container-image">
               <img src={footballImage} alt="" />
             </div>
             <h4>Football Ground</h4>
           
           </div>
-          <div className="container-box">
+          <div className={`container-box ${darkMode ? 'dark-mode' : ''}`}>
             <div className="container-image">
               <img src={basketballImage} alt="" />
             </div>
             <h4>Basketball Court</h4>
            
           </div>
-          <div className="container-box">
+          <div className={`container-box ${darkMode ? 'dark-mode' : ''}`}>
             <div className="container-image">
               <img src={tennisImage} alt="" />
             </div>
@@ -97,7 +96,7 @@ const HomePage = () => {
 
       <section className="turf-container" id="Updates">
         <div className="title">
-          <h2>
+          <h2 className={`${darkMode ? 'dark-mode-text' : ''}`}>
             Our Upcoming <br /> Games
           </h2>
         </div>
@@ -111,7 +110,7 @@ const HomePage = () => {
 
             <div className="dest-content">
               <div className="location">
-                <h4>Golf</h4>
+                <h4 className={`${darkMode ? 'dark-mode-text' : ''}`}>Golf</h4>
                 <p>Bangalore</p>
               </div>
             </div>
@@ -124,7 +123,7 @@ const HomePage = () => {
 
             <div className="dest-content">
               <div className="location">
-                <h4>Rugby</h4>
+                <h4 className={`${darkMode ? 'dark-mode-text' : ''}`}>Rugby</h4>
                 <p>Chennai</p>
               </div>
             </div>
@@ -137,7 +136,7 @@ const HomePage = () => {
 
             <div className="dest-content">
               <div className="location">
-                <h4>Baseball</h4>
+                <h4 className={`${darkMode ? 'dark-mode-text' : ''}`}>Baseball</h4>
                 <p>Calicut</p>
               </div>
             </div>
@@ -150,7 +149,7 @@ const HomePage = () => {
 
             <div className="dest-content">
               <div className="location">
-                <h4>Hockey</h4>
+                <h4 className={`${darkMode ? 'dark-mode-text' : ''}`}>Hockey</h4>
                 <p>Kochi</p>
               </div>
             </div>
@@ -160,7 +159,7 @@ const HomePage = () => {
 
       <section className="courts-container" id="courts">
         <div className="title">
-          <h2>
+          <h2 className={`${darkMode ? 'dark-mode-text' : ''}`}>
             Our Popular <br />
             Courts
           </h2>
@@ -173,7 +172,7 @@ const HomePage = () => {
               <Link to={`/turf-details/${turf._id}`}>
             <img src={turf.imageUrls[1]} alt="turf image" />
             </Link>
-            <h5>{turf.name}</h5>
+            <h5 >{turf.name}</h5>
             <p>{turf.location}</p>
           </div>
           ))}

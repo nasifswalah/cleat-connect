@@ -14,7 +14,7 @@ import deleteIcon from "../../assets/deleteIcon.svg";
 import axios from "axios";
 
 const TurfUpdation = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, darkMode } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -147,11 +147,10 @@ const TurfUpdation = () => {
 
   return (
     <>
-      <Navbar />
       <div className="turf-creation-container">
-        <div className="turf-creation-form-container">
-          <form>
-            <h3>Update Turf</h3>
+        <div className='turf-creation-form-container'>
+          <form className={`${darkMode ? 'dark-mode' : ''}`}>
+            <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Update Turf</h3>
             <input
               type="text"
               placeholder="Turf name"
@@ -230,7 +229,7 @@ const TurfUpdation = () => {
         </div>
         {updateTurfData.imageUrls.length > 0 &&
           updateTurfData.imageUrls.map((url, index) => (
-            <div key={url} className="image-display-container">
+            <div key={url} className={`image-display-container ${darkMode ? 'dark-mode' : ''}`}>
               <img src={url} alt="listing image" className="uploaded-image" />
               <span>
                 <img

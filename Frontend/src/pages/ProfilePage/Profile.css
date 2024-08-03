@@ -11,8 +11,9 @@
     position: relative;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px 5px rgba(129, 129, 129, 0.568);
     overflow: hidden;
+    transition: all ease-in-out .3s;
 }
 
 .card::before{
@@ -87,6 +88,7 @@
     font-size: 1.1rem;
     font-weight: 500;
     padding: 0 0 3px 0;
+    transition: all ease-in-out .3s;
 }
 
 .detail-data{

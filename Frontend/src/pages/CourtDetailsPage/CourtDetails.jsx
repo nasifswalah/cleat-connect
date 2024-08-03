@@ -13,9 +13,10 @@ import { setLoader } from "../../redux/userSlice.js";
 const CourtDetails = () => {
   const params = useParams();
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser,darkMode } = useSelector((state) => state.user);
 
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const [openSlotModal, setOpenSlotModal] = useState(false);
@@ -254,33 +255,27 @@ const CourtDetails = () => {
   return (
     <>
       <div className="main-wrapper">
-        <Navbar />
         <header className="court-details-header">
           <h1 className="court-name">{selectedTurfData.name} </h1>
         </header>
         <div className="main-container">
           <div className="left-detail-container">
-            <h3 className="court-detail-titles">Location</h3>
+            <h3 className={`court-detail-titles ${darkMode ? 'dark-mode-text' : ''}`}>Location</h3>
             <p className="court-detail-content">{selectedTurfData.location}</p>
-            <h3 className="court-detail-titles">Contact Number</h3>
+            <h3 className={`court-detail-titles ${darkMode ? 'dark-mode-text' : ''}`}>Contact Number</h3>
             <p className="court-detail-content">
               {selectedTurfData.contactNumber}
             </p>
-            <h3 className="court-detail-titles">Type</h3>
+            <h3 className={`court-detail-titles ${darkMode ? 'dark-mode-text' : ''}`}>Type</h3>
             <p className="court-detail-content">{selectedTurfData.turfType}</p>
-            <h3 className="court-detail-titles">Discription</h3>
+            <h3 className={`court-detail-titles ${darkMode ? 'dark-mode-text' : ''}`}>Discription</h3>
             <p className="court-detail-content">
               {selectedTurfData.description}
             </p>
 
-            <ul>
-              <li>
-                <img src={facebookIcon} alt="facebook" />
-              </li>
-              <li>
-                <img src={instagramIcon} alt="instagram" />
-              </li>
-            </ul>
+            <span className={`${darkMode ? 'dark-mode-text' : ''}`} onClick={() => navigate(`/turf-details/${params.turfId}/review`)}>
+              Reviews & Ratings
+            </span>
 
             <button
               className="btn"
@@ -290,7 +285,7 @@ const CourtDetails = () => {
             >
               Book
             </button>
-            {currentUser?.data?.role === "manager" && (
+            {currentUser?.data?.email === selectedTurfData.manager && (
               <button
                 className="btn add-slot"
                 onClick={() => setOpenSlotModal(true)}
@@ -312,8 +307,8 @@ const CourtDetails = () => {
           <div className="select-slot-modal">
             <div className="turf-creation-container slot-modal">
               <div className="turf-creation-form-container">
-                <form>
-                  <h3>Book slots</h3>
+                <form className={`${darkMode ? 'dark-mode' : ''}`}>
+                  <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Book slots</h3>
                   <input
                     type="date"
                     placeholder="Turf name"
@@ -367,7 +362,7 @@ const CourtDetails = () => {
           <div className="select-slot-modal">
             <div className="turf-creation-container slot-modal">
               <div className="turf-creation-form-container">
-                <form onSubmit={handleSlotCreation}>
+                <form className={`${darkMode ? 'dark-mode' : ''}`} onSubmit={handleSlotCreation}>
                   <h3>Add slots</h3>
                   <p>From</p>
                   <input
@@ -437,7 +432,7 @@ const CourtDetails = () => {
           <div className="select-slot-modal">
             <div className="turf-creation-container slot-modal">
               <div className="turf-creation-form-container">
-                <form>
+                <form className={`${darkMode ? 'dark-mode' : ''}`}>
                 <div>Your booking completed successfully, You will get an email including booking details</div>
                 <input type="button" value='Ok' className="btn" onClick={handleConfirmationMail}/>
                 </form>

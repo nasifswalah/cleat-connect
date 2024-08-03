@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   currentUser: null,
   loading: false,
+  darkMode: false,
 };
 
 const userSlice = createSlice({
@@ -32,9 +33,13 @@ const userSlice = createSlice({
     setLoader: (state, action) => {
       state.loading = action.payload;
     },
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
   },
 });
 
-export const { signinStart, signinSuccess, signinFailure, signOutUserStart, signOutUserSuccess, signOutUserFailure, setLoader } = userSlice.actions;
+export const { signinStart, signinSuccess, signinFailure, signOutUserStart, signOutUserSuccess, signOutUserFailure, setLoader, setDarkMode
+ } = userSlice.actions;
 
 export default userSlice.reducer;

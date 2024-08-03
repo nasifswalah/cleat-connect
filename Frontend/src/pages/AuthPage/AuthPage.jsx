@@ -7,7 +7,7 @@ import soccer from "../../assets/soccer.svg";
 import "./AuthPage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   signinStart,
   signinSuccess,
@@ -15,11 +15,11 @@ import {
 } from "../../redux/userSlice";
 import { ErrorToast, successToast } from "../../constants/toast";
 import axios from 'axios'
-import Navbar from "../../components/Navbar/Navbar";
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { darkMode } = useSelector((state) => state.user);
 
   const [modeChanger, setModeChanger] = useState("");
   const [signUpData, setSignUpData] = useState({
@@ -90,12 +90,11 @@ const AuthPage = () => {
   };
   return (
     <>
-    <Navbar/>
-      <div className={`main-conatiner ${modeChanger}`}>
+      <div className={`main-conatiner ${modeChanger} ${darkMode ? 'dark-mode' : ''}`}>
         <div className="form-conatiner">
           <div className="auth-container">
             <form onSubmit={handleSignIn} className="sign-in-form ">
-              <h3 className="auth-title">Sign in</h3>
+              <h3 className={`auth-title ${darkMode ? 'dark-mode-text' : ''}`}>Sign in</h3>
               <div className="input-field">
                 <img src={userIcon} alt="" />
                 <input
@@ -124,7 +123,7 @@ const AuthPage = () => {
             </form>
 
             <form onSubmit={handleSignUp} className="sign-up-form ">
-              <h2 className="auth-title">Sign up</h2>
+              <h2 className={`auth-title ${darkMode ? 'dark-mode-text' : ''}`}>Sign up</h2>
               <div className="input-field">
                 <img src={userIcon} alt="" />
                 <input
