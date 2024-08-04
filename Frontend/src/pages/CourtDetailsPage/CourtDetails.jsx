@@ -232,7 +232,7 @@ const CourtDetails = () => {
     });
   }
 
-  const handleCancel = () => {
+  const handleSlotCreationCancellation = () => {
     setOpenSlotModal(false);
     setSelectedSlots([]);
     setTimings(TIMINGS);
@@ -412,7 +412,7 @@ const CourtDetails = () => {
                   <input
                     type="button"
                     className="btn cancel"
-                    onClick={handleCancel}
+                    onClick={handleSlotCreationCancellation}
                     value="Cancel"
                   />
                 </form>
