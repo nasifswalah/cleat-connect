@@ -32,7 +32,7 @@ const Profile = () => {
       navigate('/homepage');
     } catch (error) {
       dispatch(signOutUserFailure());
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 

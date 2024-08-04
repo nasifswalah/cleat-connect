@@ -145,8 +145,8 @@ export const getReview = async (req, res, next) => {
 
 export const viewBookings = async (req, res, next) => {
   try {
-    const bookings = await Bookings.find({bookedBy : req.user._id});
-    if(!bookings){
+    const bookings = await Bookings.find({bookedBy : req.user.email});
+    if(bookings.length === 0){
       return next(errorHandler(404, 'No bookings'));
     }
 

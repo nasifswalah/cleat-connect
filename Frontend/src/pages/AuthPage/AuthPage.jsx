@@ -65,7 +65,7 @@ const AuthPage = () => {
       setModeChanger("sign-in-mode");
       successToast(data.message);
     } catch (error) {
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -85,7 +85,7 @@ const AuthPage = () => {
       navigate("/homepage");
     } catch (error) {
       dispatch(signinFailure());
-      ErrorToast('Server error!')
+      ErrorToast(error.response.data.message)
     }
   };
   return (

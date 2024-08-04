@@ -37,7 +37,7 @@ export const login = async (req, res, next) => {
     const { email, password } = req.body;
     const existingUser = await Users.findOne({ email });
     if (!existingUser) {
-      return next(errorHandler(404, "User not found"));
+      return next(errorHandler(404, "Invalid credentials "));
     }
 
     const existingPassword = await bcrypt.compare(
@@ -45,7 +45,7 @@ export const login = async (req, res, next) => {
       existingUser.password
     );
     if (!existingPassword) {
-      return next(errorHandler(401, "Unauthorized"));
+      return next(errorHandler(404, "Invalid credentials"));
     }
     existingUser.password = undefined;
     const options = {

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/create-slot", managerAuthorization, createTimeSlots);
 router.get("/manage-bookings", managerAuthorization, manageBookings);
-router.delete("/cancel-booking", managerAuthorization, cancelBooking);
+router.delete("/cancel-booking/:id", managerAuthorization, cancelBooking);
 router.post("/confirmation", managerAuthorization, bookingConfirmation);
 
 

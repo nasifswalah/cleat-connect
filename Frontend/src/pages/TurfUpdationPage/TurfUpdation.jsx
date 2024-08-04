@@ -42,7 +42,7 @@ const TurfUpdation = () => {
         }
         setUpdateTurfData(data.data);
       } catch (error) {
-        ErrorToast('Server error!');
+        ErrorToast(error.response.data.message);
       }
     };
     fetchUpdates();
@@ -141,7 +141,7 @@ const TurfUpdation = () => {
       navigate("/profile");
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setLoader } from "../../redux/userSlice.js";
 import { ErrorToast, successToast } from "../../constants/toast";
+import { FaCircleCheck } from "react-icons/fa6";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const ManageBookings = () => {
   const dispatch = useDispatch();
@@ -56,11 +58,9 @@ const ManageBookings = () => {
       }
       dispatch(setLoader(false))
       successToast(data.message);
-      location.reload();
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast('error.response.data.message');
-      console.log(error)
+      ErrorToast(error.response.data.message);
     }
   };
   
@@ -68,7 +68,6 @@ const ManageBookings = () => {
     const subject = 'Booking Cancellation Details';
     const content = `Your booking cancelled by the turf manager.
     For more details contact: ${currentUser.data.email}.`
-    dispatch(setLoader(true))
     try {
       const res = await axios.post('/api/manager/confirmation', {
         bookedByName: booking.bookedByName,
@@ -81,15 +80,11 @@ const ManageBookings = () => {
       });
       const data = await res.data;
       if (data.success !== true){
-        dispatch(setLoader(false))
         ErrorToast('Something went wrong');
         return;
       }
-      dispatch(setLoader(false))
       successToast(data.message);
-      location.reload();
     } catch (error) {
-      dispatch(setLoader(false))
       ErrorToast(error.response.data.message);
     }
   };
@@ -97,7 +92,7 @@ const ManageBookings = () => {
   const handleCancellation = async (booking) =>{
     dispatch(setLoader(true))
     try {
-        const res = await axios.delete('/api/manager/cancel-booking', {bookingId: booking._id});
+        const res = await axios.delete(`/api/manager/cancel-booking/${booking._id}`);
         const data = await res.data;
         if(data.success !== true){
             dispatch(setLoader(false));
@@ -107,6 +102,7 @@ const ManageBookings = () => {
         dispatch(setLoader(false));
         successToast(data.message);
         handleCancellationMail(booking);
+        setBookings((prev) => prev.filter((listing) => listing._id !== booking._id));
     } catch (error) {
         dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
@@ -124,8 +120,8 @@ const ManageBookings = () => {
         }`}
       >
         {bookings &&
-          bookings?.map((booking) => (
-            <div className="bookings manage" key={booking._id}>
+          bookings?.map((booking, index) => (
+            <div className="bookings manage" key={index}>
               <div className="booking-details">
                 <p>Booked By: {booking.bookedBy}</p>
                 <p>Booked Slots: {booking.timeSlotNames}</p>
@@ -136,8 +132,8 @@ const ManageBookings = () => {
                 </p>
               </div>
               <div className="manage-btns">
-                <input type="button" className="btn create" value="confirm" onClick={() => handleConfirmation(booking)} />
-                <input type="button" className="btn cancel" value="cancel" onClick={() => handleCancellation(booking)} />
+                <FaCircleCheck size={20} color="#4E9F3D" onClick={() => handleConfirmation(booking)} />
+                <IoIosCloseCircle size={23} color="#ED2B2A" onClick={() => handleCancellation(booking, index)} />
               </div>
             </div>
           ))}

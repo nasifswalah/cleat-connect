@@ -37,7 +37,7 @@ const ReviewPage = () => {
         setReviews(data.data);
       } catch (error) {
         dispatch(setLoader(false));
-        ErrorToast(error);
+        ErrorToast(error.response.data.message);
       }
     };
     fetchReviews();
@@ -69,7 +69,7 @@ const ReviewPage = () => {
       successToast(data.message);
     } catch (error) {
       dispatch(setLoader(false));
-      ErrorToast(error);
+      ErrorToast(error.response.data.message);
     }
   };
 

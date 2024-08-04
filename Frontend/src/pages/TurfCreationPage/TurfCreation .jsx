@@ -126,7 +126,7 @@ const TurfCreation = () => {
       navigate("/profile");
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -145,7 +145,7 @@ const TurfCreation = () => {
       dispatch(setLoader(false))
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -166,7 +166,7 @@ const TurfCreation = () => {
       successToast(data.message);
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -254,7 +254,7 @@ const TurfCreation = () => {
         </div>
         {newTurfData.imageUrls.length > 0 &&
           newTurfData.imageUrls.map((url, index) => (
-            <div key={url} className="image-display-container">
+            <div key={url} className={`image-display-container ${darkMode ? 'dark-mode' : ''}`}>
               <img src={url} alt="listing image" className="uploaded-image" />
               <span>
                 <img
@@ -286,7 +286,7 @@ const TurfCreation = () => {
                     <tr key={index}>
                       <td>
                         <img
-                          src={turf.imageUrls[1]}
+                          src={turf.imageUrls[0]}
                           alt="turf tumb image"
                           height="100"
                         />

@@ -44,22 +44,22 @@ const Navbar = () => {
 
           <div className="links">
             <ul>
-              <li>
+              <li onClick={() => setModeChanger(!modeChanger)}>
                 <Link to="/homepage" className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}>
                   Home
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setModeChanger(!modeChanger)}>
                 <Link to="/aboutUs" className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}>
                   About
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setModeChanger(!modeChanger)}>
                 <Link to="/search-display" className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}>
                   Search
                 </Link>
               </li>
-              <li>
+              <li onClick={() => setModeChanger(!modeChanger)}>
                 <Link
                   to={currentUser ? "/profile" : "/auth"}
                   className={`nav-link ${darkMode ? 'dark-mode-text' : ''}`}
@@ -68,7 +68,7 @@ const Navbar = () => {
                   {currentUser ? "Profile" : "Register"}
                 </Link>
               </li>
-              <li className={`darkener ${darkMode ? 'dark-mode-text' : ''}`} onClick={() => {dispatch(setDarkMode(!darkMode))}}
+              <li className={`darkener ${darkMode ? 'dark-mode-text' : ''}`} onClick={() => {dispatch(setDarkMode(!darkMode)); setModeChanger(!modeChanger);}}
               >
                   <FaRegMoon size={15}/>
               </li>

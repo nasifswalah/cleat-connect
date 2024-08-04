@@ -52,7 +52,7 @@ const CourtDetails = () => {
         dispatch(setLoader(false))
       } catch (error) {
         dispatch(setLoader(false))
-        ErrorToast('Server error!');
+        ErrorToast(error.response.data.message);
       }
     };
     fetchUpdates();
@@ -71,7 +71,7 @@ const CourtDetails = () => {
         }
         setAvailableSlots(data.data);
       } catch (error) {
-        ErrorToast('Server error!');
+        ErrorToast(error.response.data.message);
       }
     };
     fetchSlots();
@@ -116,7 +116,7 @@ const CourtDetails = () => {
       setOpenSlotModal(false);
     } catch (error) {
       dispatch(setLoader(false))
-      ErrorToast("Sever error!");
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -146,7 +146,7 @@ const CourtDetails = () => {
       return;
     }
 
-    if (!bookedSlots){
+    if (bookedSlots.length === 0){
       return ErrorToast('Select a slot');
     }
     // creating a new order
@@ -234,7 +234,14 @@ const CourtDetails = () => {
 
   const handleCancel = () => {
     setOpenSlotModal(false);
-    location.reload();
+    setSelectedSlots([]);
+    setTimings(TIMINGS);
+  }
+
+  const handleBookingCancellation = () => {
+    setOpenBookingModal(false);
+    setBookedSlots([]);
+    setBookingDate(today);
   }
 
   return (
@@ -335,7 +342,7 @@ const CourtDetails = () => {
                   <input
                     type="button"
                     className="btn cancel"
-                    onClick={() => setOpenBookingModal(false)}
+                    onClick={handleBookingCancellation}
                     value="Cancel"
                   />
                 </form>
@@ -348,7 +355,7 @@ const CourtDetails = () => {
             <div className="turf-creation-container slot-modal">
               <div className="turf-creation-form-container">
                 <form className={`${darkMode ? 'dark-mode' : ''}`} onSubmit={handleSlotCreation}>
-                  <h3>Add slots</h3>
+                  <h3 className={`${darkMode ? 'dark-mode-text' : ''}`}>Add slots</h3>
                   <p>From</p>
                   <input
                     type="date"

@@ -15,32 +15,26 @@ import instagramIcon from "../../assets/instagram.svg"
 import { ErrorToast } from "../../constants/toast";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { setLoader } from "../../redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 
 const HomePage = () => {
-  const dispatch = useDispatch();
   const [turfData, setTurfData] = useState([]);
   const { darkMode } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchUpdates = async () => {
-      dispatch(setLoader(true))
       try {
         const res = await axios.get('/api/user/get-turfs');
         const data = await res.data;
         if (data.success === false) {
-          dispatch(setLoader(false))
           ErrorToast('Failed to load');
           return;
         }
         setTurfData(data.data);
-        dispatch(setLoader(false))
       } catch (error) {
-        dispatch(setLoader(false))
-        ErrorToast('Server error!');
+        ErrorToast(error.response.data.message);
       }
     };
     fetchUpdates();
@@ -170,7 +164,7 @@ const HomePage = () => {
           { turfData && turfData.map((turf) => (
             <div className="court-content" key={turf._id}>
               <Link to={`/turf-details/${turf._id}`}>
-            <img src={turf.imageUrls[1]} alt="turf image" />
+            <img src={turf.imageUrls[0]} alt="turf image" />
             </Link>
             <h5 >{turf.name}</h5>
             <p>{turf.location}</p>

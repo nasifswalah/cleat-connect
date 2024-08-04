@@ -23,7 +23,7 @@ const LandingPage = () => {
                 </p>
               </div>
               <div className="explore-btn">
-                <Link id="btn" className="start-btn" to='/homepage' >
+                <Link id="btn" className="start-btn" to='/auth' >
                   Get started
                 </Link>
               </div>

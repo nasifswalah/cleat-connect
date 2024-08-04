@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./Bookings.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { ErrorToast } from "../../constants/toast";
-import { setLoader } from "../../redux/userSlice.js";
+
 
 const Bookings = () => {
-    const dispatch = useDispatch();
   const { darkMode } = useSelector((state) => state.user);
 
   const [ bookings, setBookings ] = useState([]);
 
   useEffect(() => {
     const fetchBookings = async () => {
-        dispatch(setLoader(true));
       try {
         const res = await axios.get('/api/user/view-bookings');
         const data = await res.data;
         if (data.success !== true) {
-            dispatch(setLoader(false));
           ErrorToast("Failed to find your bookigs!");
           return;
         }
         setBookings(data.data);
-        dispatch(setLoader(false));
       } catch (error) {
-        dispatch(setLoader(false));
-        ErrorToast(error.response);
+        ErrorToast(error.response.data.message);
       }
     };
 

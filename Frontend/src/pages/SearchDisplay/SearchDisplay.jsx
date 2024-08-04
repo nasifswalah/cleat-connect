@@ -28,7 +28,7 @@ const SearchDisplay = () => {
       dispatch(setLoader(false));
     } catch (error) {
       dispatch(setLoader(false));
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 
@@ -55,7 +55,7 @@ const SearchDisplay = () => {
               searchResult.map((turf) => (
                 <div className="court-content" key={turf._id}>
                   <Link to={`/turf-details/${turf._id}`}>
-                    <img src={turf.imageUrls[1]} alt="turf image" />
+                    <img src={turf.imageUrls[0]} alt="turf image" />
                   </Link>
                   <h5>{turf.name}</h5>
                   <p>{turf.location}</p>

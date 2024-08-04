@@ -2,3 +2,10 @@
     display: flex;
     justify-content: space-between;
 }
+
+.manage-btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+

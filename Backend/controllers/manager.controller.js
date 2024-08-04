@@ -67,12 +67,16 @@ export const manageBookings = async (req, res, next) => {
 
 export const cancelBooking = async(req, res, next) => {
   try {
-    const {bookingId} = req.body;
-    await Bookings.findByIdAndDelete(bookingId);
+    const data = await Bookings.findByIdAndDelete(req.params.id);
+
+    if (!data) {
+      return next(errorHandler(404, 'Booking not found'));
+    }
     
     res.status(200).json({
       success: true,
-      message: 'Booking cancelled'
+      message: 'Booking cancelled',
+      data,
     })
   } catch (error) {
     next(error);

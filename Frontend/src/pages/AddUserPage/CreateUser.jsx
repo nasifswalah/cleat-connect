@@ -33,7 +33,7 @@ const CreateUser = () => {
       const data = await res.data;
       if (data.success === false) {
         dispatch(setLoader(false));
-        ErrorToast("Something went wrong!");
+        ErrorToast("Try again later");
         return;
       }
       dispatch(setLoader(false));
@@ -41,7 +41,7 @@ const CreateUser = () => {
       navigate("/profile");
     } catch (error) {
       dispatch(setLoader(false));
-      ErrorToast('Server error!');
+      ErrorToast(error.response.data.message);
     }
   };
 

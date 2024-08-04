@@ -24,16 +24,16 @@ import ManageBookings from "./pages/ManageBookingsPage/ManageBookings";
 
 const router = createBrowserRouter([
   {
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/auth",
+    element: <AuthPage />,
+  },
+  {
     element: <Navbar/>,
     children:[
-      {
-        path: "/",
-        element: <LandingPage />,
-      },
-      {
-        path: "/auth",
-        element: <AuthPage />,
-      },
       {
         path: "/homepage",
         element: <HomePage />,
