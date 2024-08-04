@@ -19,6 +19,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReviewPage from "./pages/ReviewPage/ReviewPage";
 import Navbar from "./components/Navbar/Navbar";
 import Bookings from "./pages/BookingsPage/Bookings";
+import ManagerRoute from "./components/PrivateRoutes/ManagerRoute";
+import ManageBookings from "./pages/ManageBookingsPage/ManageBookings";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,15 @@ const router = createBrowserRouter([
           {
             path: "/update-turf/:turfId",
             element: <TurfUpdation />,
+          },
+        ],
+      },
+      {
+        element: <ManagerRoute />,
+        children: [
+          {
+            path: "/manage-bookings",
+            element: <ManageBookings />,
           },
         ],
       },

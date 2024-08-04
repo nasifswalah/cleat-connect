@@ -51,14 +51,13 @@ export const deleteTurf = async (req, res, next) => {
     }
 
     if (req.user._id !== turfData.createdBy.toString()) {
-      return next(errorHandler(401, "You cannot delete this turf"));
+      return next(errorHandler(401, "You can't delete this turf"));
     }
 
-    const deletedTurf = await Turfs.findByIdAndDelete(req.params.id);
+    await Turfs.findByIdAndDelete(req.params.id);
     res.status(200).json({
       success: true,
       message: "Turf deleted successfully",
-      data: deletedTurf
     });
   } catch (error) {
     next(error);

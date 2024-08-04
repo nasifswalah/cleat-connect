@@ -3,6 +3,7 @@ import "./Profile.css";
 import addUserIcon from "../../assets/addUserIcon.svg"
 import addNewCourtIcon from "../../assets/addNewCourt.svg"
 import bookingsIcon from "../../assets/bookings.svg"
+import manageIcon from "../../assets/manageIcon.svg"
 import logoutIcon from "../../assets/logoutIcon.svg"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,6 +60,7 @@ const Profile = () => {
               { currentUser.data.role === "admin" && <> <span className="icon"><img src={addUserIcon} alt="icon" onClick={()=>navigate('/create-new-user')}/></span>
               <span className="icon"><img src={addNewCourtIcon} alt="icon" onClick={()=>navigate('/create-new-turf')} /></span> </>}
               <span className="icon"><img src={bookingsIcon} alt="icon" onClick={()=>navigate('/view-bookings')} /></span>
+              { currentUser.data.role === 'manager' && <span className="icon"><img src={manageIcon} alt="icon" onClick={()=>navigate('/manage-bookings')} /></span>}
               <span className="icon"><img src={logoutIcon} alt="icon" onClick={handleLogout} /></span>
               </div>
           </div>

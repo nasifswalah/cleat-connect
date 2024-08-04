@@ -4,7 +4,7 @@ import Slots from "../models/slots.model.js";
 import { errorHandler } from "../utils/error.handler.js";
 import Bookings from "../models/booking.model.js";
 import Turfs from "../models/turf.model.js";
-import nodemailer from 'nodemailer';
+
 
 export const bookings = async (req, res, next) => {
   try {
@@ -27,6 +27,7 @@ export const bookings = async (req, res, next) => {
       timeSlotNames,
       turfName,
       bookedBy: req.user._id,
+      bookedByName: req.user.name,
       totalCost: totalCost,
       paymentStatus: "Pending",
     }).save();
@@ -91,7 +92,7 @@ export const success = async (req, res, next) => {
       {
         $set: {
           paymentStatus: "Paid",
-          bookedBy: req.user._id,
+          bookedBy: req.user.email,
           turfId,
           turfName,
           bookingDate: new Date(bookingDate),
@@ -110,75 +111,3 @@ export const success = async (req, res, next) => {
   }
 };
 
-export const bookingConfirmation = async (req, res, next) => {
-  try {
-    const { userName, userEmail, turfId, bookedSlots } = req.body;
-    const slotName = [];
-    let totalCost = 0;
-
-    bookedSlots.map((slot) => (
-      slotName.push(slot.slot.name)
-    ));
-
-    bookedSlots.map((slot) => (
-      totalCost = slot.cost
-    ));
-
-    const turfData = await Turfs.findOne({ _id: turfId });
-
-    const text = `
-  Hello ${userName},
-
-  Thank you for your booking!
-
-  Booking Details:
-  - Turf: ${turfData.name}
-  - Time: ${slotName}
-  - Amount Paid: ${totalCost}
-
-  We look forward to seeing you!
-
-  Best regards,
-  Cleat Connect
-  `;
-
-    // HTML version of the email
-    const html = `
-  <p>Hello ${userName},</p>
-  <p>Thank you for your booking!</p>
-  <p><strong>Booking Details:</strong></p>
-  <ul>
-    <li><strong>Turf:</strong> ${turfData.name}</li>
-    <li><strong>Time:</strong> ${slotName}</li>
-    <li><strong>Amount Paid:</strong> ${totalCost}</li>
-  </ul>
-  <p>We look forward to seeing you!</p>
-  <p>Best regards,<br><strong>Cleat Connect</strong></p>
-  `;
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.NODEMAILER_AUTH_ID,
-        pass: process.env.NODEMAILER_AUTH_PASSWORD,
-      },
-    });
-
-    const mailOptions = {
-      from: `"Cleat Connect" <${process.env.NODEMAILER_AUTH_ID}>`,
-      to: userEmail,
-      subject: "Cleat Connect - Booking confirmation",
-      text: text,
-      html: html,
-    };
-
-    const mail = await transporter.sendMail(mailOptions);
-    console.log("Message sent: %s", mail.messageId);
-    res.status(200).json("Confirmation mail has been send");
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};

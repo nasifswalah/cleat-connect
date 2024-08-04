@@ -5,6 +5,10 @@ const bookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  bookedByName: {
+    type: String,
+    required: true,
+  },
   turfId: {
     type: String,
     required: true,

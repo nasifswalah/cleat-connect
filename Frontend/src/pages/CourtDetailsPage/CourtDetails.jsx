@@ -232,31 +232,6 @@ const CourtDetails = () => {
     });
   }
 
-  const handleConfirmationMail = async () => {
-    dispatch(setLoader(true))
-    try {
-      const res = await axios.post('/api/booking/confirmation', {
-        userName: currentUser.data.name,
-        userEmail: currentUser.data.email,
-        turfId: params.turfId,
-        bookedSlots,
-      });
-      const data = await res.data;
-      if (!data){
-        dispatch(setLoader(false))
-        ErrorToast('Try again later');
-        return;
-      }
-      dispatch(setLoader(false))
-      successToast('Check your mail for confirmation');
-      setOpenMessageModal(false);
-      location.reload();
-    } catch (error) {
-      dispatch(setLoader(false))
-      ErrorToast('Server error!');
-    }
-  };
-
   const handleCancel = () => {
     setOpenSlotModal(false);
     location.reload();
@@ -425,7 +400,7 @@ const CourtDetails = () => {
                       <span className="slot-span">{slot.name}</span>
                     ))}
                   </div>
-                  <input type="submit" className="btn" value="Create" />
+                  <input type="submit" className="btn create" value="Create" />
 
                   <input
                     type="button"
@@ -444,7 +419,7 @@ const CourtDetails = () => {
               <div className="turf-creation-form-container">
                 <form className={`${darkMode ? 'dark-mode' : ''}`}>
                 <div>Your booking completed successfully, You will get an email including booking details</div>
-                <input type="button" value='Ok' className="btn" onClick={handleConfirmationMail}/>
+                <input type="button" value='Ok' className="btn" onClick={() => setOpenMessageModal(false)}/>
                 </form>
               </div>
             </div>
