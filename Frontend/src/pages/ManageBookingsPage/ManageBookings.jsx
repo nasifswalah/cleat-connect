@@ -151,7 +151,7 @@ const ManageBookings = () => {
                   {new Date(booking.bookingDate).toLocaleDateString()}
                 </p>
               </div>
-              <div className="manage-btns">
+              <div className="manage-booking-btns">
                 <FaCircleCheck size={20} color="#4E9F3D" onClick={() => handleConfirmation(booking)} />
                 <IoIosCloseCircle size={23} color="#ED2B2A" onClick={() => handleCancellation(booking, index)} />
               </div>
