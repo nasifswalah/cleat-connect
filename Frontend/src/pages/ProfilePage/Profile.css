@@ -121,6 +121,7 @@
     transform: scale(1.05);
     border: 1px solid #0DBA85;
     box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 @media (max-width: 370px) {
