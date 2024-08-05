@@ -32,19 +32,15 @@ const ManageBookings = () => {
   // useEffect hook to retrieve booking data 
   useEffect(() => {
     const fetchBookings = async () => {
-      dispatch(setLoader(true));
       try {
         const res = await axios.get("/api/manager/manage-bookings");
         const data = await res.data;
         if (data.success !== true) {
-          dispatch(setLoader(false));
           ErrorToast("Failed to find bookigs!");
           return;
         }
         setBookings(data.data);
-        dispatch(setLoader(false));
       } catch (error) {
-        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };

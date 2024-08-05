@@ -77,20 +77,16 @@ const CourtDetails = () => {
   // useEffect hook to retrive the selected turf data
   useEffect(() => {
     const fetchUpdates = async () => {
-      dispatch(setLoader(true))
       const turfId = params.turfId;
       try {
         const res = await axios.get(`/api/user/get-turf/${turfId}`);
         const data = await res.data;
         if (data.success === false) {
-          dispatch(setLoader(false))
           ErrorToast('Failed to load details');
           return;
         }
         setSelectedTurfData(data.data);
-        dispatch(setLoader(false))
       } catch (error) {
-        dispatch(setLoader(false))
         ErrorToast(error.response.data.message);
       }
     };

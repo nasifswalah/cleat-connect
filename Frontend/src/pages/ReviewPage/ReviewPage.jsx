@@ -52,19 +52,15 @@ const ReviewPage = () => {
   // useEffect hook to fetch existing reviews
   useEffect(() => {
     const fetchReviews = async () => {
-      dispatch(setLoader(true));
       try {
         const res = await axios.get(`/api/user/get-review/${turfId}`);
         const data = await res.data;
         if (data.success !== true) {
-          dispatch(setLoader(false));
           ErrorToast(data.message);
           return;
         }
-        dispatch(setLoader(false));
         setReviews(data.data);
       } catch (error) {
-        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };
