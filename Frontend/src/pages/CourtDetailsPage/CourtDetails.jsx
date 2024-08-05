@@ -16,7 +16,7 @@ import { ErrorToast, successToast } from "../../constants/toast";
 import { TIMINGS } from "../../constants/timings.js";
 
 // import setLoader action creator from user slice 
-import { setLoader } from "../../redux/userSlice.js";
+import { setLoader } from "../../redux/generalSlice.js";
 
 const CourtDetails = () => {
 
@@ -33,7 +33,9 @@ const CourtDetails = () => {
   const today = new Date().toISOString().split("T")[0];
 
   // Destructuring darkMode and currentUser from the user slice of Redux state
-  const { currentUser,darkMode } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to manage the opening and closing of booking modal
   const [openBookingModal, setOpenBookingModal] = useState(false);

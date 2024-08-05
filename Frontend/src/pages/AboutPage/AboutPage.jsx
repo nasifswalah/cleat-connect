@@ -12,7 +12,7 @@ import collage from '../../assets/collage--2.png'
 const AboutPage = () => {
   
   // Destructuring darkMode from user slice 
-  const { darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
   return (
     <>
       <section className={`about-section ${darkMode ? 'dark-mode' : ''}`}>

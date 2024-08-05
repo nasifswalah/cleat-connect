@@ -12,7 +12,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 // import setLoader action creator from user slice
-import { setLoader } from "../../redux/userSlice";
+import { setLoader } from "../../redux/generalSlice.js";
 
 // Import ErrorToast to manage notifications 
 import { ErrorToast } from "../../constants/toast";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Loader from "./components/Loader/Loader";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -99,14 +99,14 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const { loading, darkMode } = useSelector((state) => state.user);
-  const body = document.getElementById('body');
-
-if(darkMode === true) {
-  body.classList.add('dark-mode')
-} else {
-  body.classList.remove('dark-mode')
-}
+  const { loading, darkMode } = useSelector((state) => state.general);
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
   return (
     <>
       <ToastContainer />

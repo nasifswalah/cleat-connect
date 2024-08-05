@@ -19,9 +19,7 @@ import soccer from "../../assets/soccer.svg";
 
 // import sign-in action creators from user slice 
 import {
-  signinStart,
   signinSuccess,
-  signinFailure,
 } from "../../redux/userSlice";
 
 // Import ErrorToast and successToast to manage notifications 
@@ -37,7 +35,7 @@ const AuthPage = () => {
   const dispatch = useDispatch();
 
   // Destructuring darkMode from the user slice of Redux state
-  const { darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to manage the changes in responsiveness of the page
   const [modeChanger, setModeChanger] = useState("");
@@ -97,12 +95,10 @@ const AuthPage = () => {
   ////Function to handle sign-in
   const handleSignIn = async (e) => {
     e.preventDefault();
-    dispatch(signinStart());
     try {
       const res = await axios.post("/api/auth/login", signInData);
       const data = await res.data;
       if (data.success === false) {
-        dispatch(signinFailure());
         ErrorToast('Try again later')
         return;
       }
@@ -110,7 +106,6 @@ const AuthPage = () => {
       successToast(data.message);
       navigate("/homepage");
     } catch (error) {
-      dispatch(signinFailure());
       ErrorToast(error.response.data.message)
     }
   };

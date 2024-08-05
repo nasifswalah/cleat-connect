@@ -15,7 +15,7 @@ import { ErrorToast } from "../../constants/toast";
 const Bookings = () => {
 
   // Destructuring darkMode from the user slice of Redux state
-  const { darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to store and manage bookings data
   const [ bookings, setBookings ] = useState([]);

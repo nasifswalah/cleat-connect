@@ -15,6 +15,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
+// import setLoader action creator from user slice 
+import { setLoader } from "../../redux/generalSlice.js";
+
 // Import ErrorToast and successToast to manage notifications 
 import { ErrorToast, successToast } from "../../constants/toast.js";
 
@@ -25,7 +28,8 @@ import deleteIcon from "../../assets/deleteIcon.svg";
 const TurfUpdation = () => {
 
   // Destructuring darkMode and currentUser from the user slice of Redux state
-  const { currentUser, darkMode } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // Get the navigate function from useNavigate hook
   const navigate = useNavigate();

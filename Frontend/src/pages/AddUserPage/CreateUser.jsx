@@ -10,7 +10,7 @@ import axios from "axios";
 import { ErrorToast, successToast } from "../../constants/toast.js";
 
 // import setLoader action creator from user slice 
-import { setLoader } from "../../redux/userSlice.js";
+import { setLoader } from "../../redux/generalSlice.js";
 
 const CreateUser = () => {
 
@@ -21,7 +21,7 @@ const CreateUser = () => {
   const navigate = useNavigate();
 
   // Destructuring darkMode from the user slice of Redux state
-  const { darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to manage user details
   const [userData, setUserData] = useState({

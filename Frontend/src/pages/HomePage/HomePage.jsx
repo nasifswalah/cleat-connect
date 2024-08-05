@@ -32,7 +32,7 @@ import instagramIcon from "../../assets/instagram.svg"
 const HomePage = () => {
  
   // Destructuring darkMode from the user slice of Redux state
-  const { darkMode } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to manage various turf data
   const [turfData, setTurfData] = useState([]);

@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 // import setLoader action creator from user slice 
-import { setLoader } from "../../redux/userSlice.js";
+import { setLoader } from "../../redux/generalSlice.js";
 
 // Import ErrorToast and successToast to manage notifications 
 import { ErrorToast, successToast } from "../../constants/toast";
@@ -32,7 +32,8 @@ const ReviewPage = () => {
   const dispatch = useDispatch();
 
   // Destructuring darkMode and currentUser from the user slice of Redux state
-  const { currentUser, darkMode } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+  const {  darkMode } = useSelector((state) => state.general);
 
   //useState hook to manage changes whether rating
   const [rating, setRating] = useState(null);

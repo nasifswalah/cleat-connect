@@ -12,7 +12,7 @@ import { Link, Outlet } from "react-router-dom";
 import logo from "../../assets/Cleat logo.png";
 import bar from "../../assets/bar.svg";
 import closeIcon from "../../assets/close.svg";
-import { setDarkMode } from "../../redux/userSlice";
+import { setDarkMode } from "../../redux/generalSlice.js";
 import { FaRegMoon } from "react-icons/fa";
 
 const Navbar = () => {
@@ -20,8 +20,10 @@ const Navbar = () => {
   // Get the dispatch function from the Redux store to dispatch actions
   const dispatch = useDispatch();
 
-  // Destructuring currentUser and darkMode from the user slice of Redux state
-  const { currentUser, darkMode } = useSelector((state) => state.user);
+  // Destructuring currentUser and darkMode from the general slice of Redux state
+  const { darkMode } = useSelector((state) => state.general);
+
+  const { currentUser } = useSelector((state) => state.user);
 
   // useState hook to manage the changes in responsiveness of navigation bar
   const [modeChanger, setModeChanger] = useState(false);

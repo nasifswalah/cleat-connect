@@ -17,7 +17,7 @@ import cleatLogo from '../../assets/Cleat logo.png'
 const LandingPage = () => {
 
   // Destructuring darkMode from the user slice of Redux state
-  const {darkMode} = useSelector((state) => state.user);
+  const {darkMode} = useSelector((state) => state.general);
 
   return (
     <main>

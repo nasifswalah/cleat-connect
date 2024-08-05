@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // import setLoader action creator from user slice
-import { setLoader } from "../../redux/userSlice.js";
+import { setLoader } from "../../redux/generalSlice.js";
 
 // Import ErrorToast and successtoast to manage notifications
 import { ErrorToast, successToast } from "../../constants/toast";
@@ -24,7 +24,8 @@ const ManageBookings = () => {
   const dispatch = useDispatch();
 
   // Destructuring darkMode and currentUser from the user slice of Redux state
-  const { darkMode, currentUser } = useSelector((state) => state.user);
+  const {  currentUser } = useSelector((state) => state.user);
+  const { darkMode } = useSelector((state) => state.general);
 
   // useState hook to manage bookings data
   const [bookings, setBookings] = useState([]);

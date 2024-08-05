@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // import action creators from user slice
-import {signOutUserStart, signOutUserSuccess, signOutUserFailure} from '../../redux/userSlice.js'
+import {signOutUserSuccess } from '../../redux/userSlice.js'
 
 // Import ErrorToast and successtoast to manage notifications
 import { ErrorToast, successToast } from "../../constants/toast";
@@ -27,7 +27,8 @@ import logoutIcon from "../../assets/logoutIcon.svg"
 const Profile = () => {
 
   // Destructuring darkMode and currentUser from the user slice of Redux state
-  const { currentUser, darkMode } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
+  const {  darkMode } = useSelector((state) => state.general);
 
   // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
@@ -38,11 +39,9 @@ const Profile = () => {
   // Function to handle log-out
   const handleLogout = async () => {
     try {
-      dispatch(signOutUserStart());
       const res = await axios.get("/api/auth/logout");
       const data = await res.data;
       if (data.success === false) {
-        dispatch(signOutUserFailure());
         ErrorToast("Something went wrong!");
         return;
       }
@@ -50,7 +49,6 @@ const Profile = () => {
       successToast(data.message);
       navigate('/homepage');
     } catch (error) {
-      dispatch(signOutUserFailure());
       ErrorToast(error.response.data.message);
     }
   };
