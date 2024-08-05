@@ -41,14 +41,18 @@ const HomePage = () => {
   useEffect(() => {
     const fetchUpdates = async () => {
       try {
+        dispatch(setLoader(true));
         const res = await axios.get('/api/user/get-turfs');
         const data = await res.data;
         if (data.success === false) {
+          dispatch(setLoader(false));
           ErrorToast('Failed to load');
           return;
         }
         setTurfData(data.data);
+        dispatch(setLoader(false));
       } catch (error) {
+        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };

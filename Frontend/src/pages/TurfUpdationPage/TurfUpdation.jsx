@@ -57,14 +57,18 @@ const TurfUpdation = () => {
     const fetchUpdates = async () => {
       const turfId = params.turfId;
       try {
+        dispatch(setLoader(true));
         const res = await axios.get(`/api/user/get-turf/${turfId}`);
         const data = await res.data;
         if (data.success === false) {
+          dispatch(setLoader(false));
           ErrorToast("Something went wrong!");
           return;
         }
         setUpdateTurfData(data.data);
+        dispatch(setLoader(false));
       } catch (error) {
+        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };

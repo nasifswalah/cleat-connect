@@ -54,14 +54,18 @@ const ReviewPage = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        dispatch(setLoader(true));
         const res = await axios.get(`/api/user/get-review/${turfId}`);
         const data = await res.data;
         if (data.success !== true) {
+          dispatch(setLoader(false));
           ErrorToast(data.message);
           return;
         }
         setReviews(data.data);
+        dispatch(setLoader(false));
       } catch (error) {
+        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };

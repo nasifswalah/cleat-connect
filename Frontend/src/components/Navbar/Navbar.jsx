@@ -33,7 +33,7 @@ const Navbar = () => {
 
   // Method to handle the changes in navbar whether scrolling
   const handleScrollEffect = () => {
-    if (window.scrollY >= 70) {
+    if (window.scrollY >= 50) {
       if( darkMode === true){
         setScrollEffect('darkScrollEffect');
       } else {

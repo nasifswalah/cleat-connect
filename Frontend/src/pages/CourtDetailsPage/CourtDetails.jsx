@@ -81,14 +81,18 @@ const CourtDetails = () => {
     const fetchUpdates = async () => {
       const turfId = params.turfId;
       try {
+        dispatch(setLoader(true));
         const res = await axios.get(`/api/user/get-turf/${turfId}`);
         const data = await res.data;
         if (data.success === false) {
+          dispatch(setLoader(false));
           ErrorToast('Failed to load details');
           return;
         }
         setSelectedTurfData(data.data);
+        dispatch(setLoader(false));
       } catch (error) {
+        dispatch(setLoader(false));
         ErrorToast(error.response.data.message);
       }
     };
