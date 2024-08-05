@@ -1,26 +1,49 @@
-import React, { useState } from "react";
+// Import with TurfCreation.css for styles
 import "./TurfCreation.css";
-import editIcon from "../../assets/editIcon.svg";
-import deleteIcon from "../../assets/deleteIcon.svg";
-import { ErrorToast, successToast } from "../../constants/toast.js";
+
+// Import the neccessary hooks and components
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { app } from "../../constants/firebase.js";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import neccessary methods from firebase storage
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../../constants/firebase.js";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+
+// import setLoader action creator from user slice 
 import { setLoader } from "../../redux/userSlice.js";
 
+// Import ErrorToast and successToast to manage notifications 
+import { ErrorToast, successToast } from "../../constants/toast.js";
+
+// Import neccessary icons from assets folder
+import editIcon from "../../assets/editIcon.svg";
+import deleteIcon from "../../assets/deleteIcon.svg";
+
+
 const TurfCreation = () => {
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch();
+
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { currentUser, darkMode } = useSelector((state) => state.user);
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
 
+  // useState hook to manage images
   const [imageFiles, setImageFiles] = useState([]);
+
+  // useState hook to manage new turf data
   const [newTurfData, setNewTurfData] = useState({
     imageUrls: [],
     name: "",
@@ -31,9 +54,14 @@ const TurfCreation = () => {
     manager: "",
     createdBy: "",
   });
+
+  // useState hook to manage opening and closing of turf listing
   const [openDisplay, setOpenDisplay] = useState(false);
+
+  // useState hook to manage existing turf data
   const [createdTurfData, setCreatedTurfData] = useState([]);
 
+  // Function to handle image storing into firebase
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -58,6 +86,7 @@ const TurfCreation = () => {
     });
   };
 
+  // Function to handle image uploading
   const handleImageUpload = () => {
     dispatch(setLoader(true))
     if (
@@ -87,6 +116,7 @@ const TurfCreation = () => {
     }
   };
 
+  // Function to handle changes in new turf creation
   const handleTurfCreationChange = (e) => {
     setNewTurfData({
       ...newTurfData,
@@ -94,6 +124,7 @@ const TurfCreation = () => {
     });
   };
 
+  // Function to handle remove an existing image
   const handleRemoveImge = (index) => {
     setNewTurfData({
       ...newTurfData,
@@ -101,6 +132,7 @@ const TurfCreation = () => {
     });
   };
 
+  // Function to handle new turf creation
   const handleTurfCreation = async (e) => {
     e.preventDefault();
     dispatch(setLoader(true));
@@ -130,6 +162,7 @@ const TurfCreation = () => {
     }
   };
 
+  // Function to handle listing of existing turf
   const handleTurfDisplay = async () => {
     dispatch(setLoader(true))
     try {
@@ -149,6 +182,7 @@ const TurfCreation = () => {
     }
   };
 
+  // Function to handle existing turf deletion
   const handleTurfDeletion = async (turfId) => {
     dispatch(setLoader(true))
     try {

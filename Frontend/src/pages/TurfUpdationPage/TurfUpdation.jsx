@@ -1,24 +1,42 @@
+// Import the neccessary hooks and components
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { app } from "../../constants/firebase.js";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import neccessary methods from firebase storage
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../../constants/firebase.js";
+
+// Import ErrorToast and successToast to manage notifications 
 import { ErrorToast, successToast } from "../../constants/toast.js";
+
+// Import neccessary icons from assets folder
 import deleteIcon from "../../assets/deleteIcon.svg";
-import axios from "axios";
+
 
 const TurfUpdation = () => {
+
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { currentUser, darkMode } = useSelector((state) => state.user);
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Get the params function from useParams hook
   const params = useParams();
 
+  // useState hook to manage images
   const [imageFiles, setImageFiles] = useState([]);
+
+  // useState hook to manage existing turf data
   const [updateTurfData, setUpdateTurfData] = useState({
     imageUrls: [],
     name: "",
@@ -30,6 +48,7 @@ const TurfUpdation = () => {
     createdBy: "",
   });
 
+  // useEffect hook to retrive existing turf data that needs to be update
   useEffect(() => {
     const fetchUpdates = async () => {
       const turfId = params.turfId;
@@ -48,6 +67,7 @@ const TurfUpdation = () => {
     fetchUpdates();
   }, []);
 
+  // Function to handle image storing into firebase
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -73,6 +93,7 @@ const TurfUpdation = () => {
     });
   };
 
+  // Function to handle image uploading
   const handleImageUpload = () => {
     dispatch(setLoader(true))
     if (
@@ -102,6 +123,7 @@ const TurfUpdation = () => {
     }
   };
 
+  // Function to handle changes in existing turf updation
   const handleTurfUpdateChange = (e) => {
     setUpdateTurfData({
       ...updateTurfData,
@@ -109,6 +131,7 @@ const TurfUpdation = () => {
     });
   };
 
+  // Function to handle remove an existing image
   const handleRemoveImge = (index) => {
     setUpdateTurfData({
       ...updateTurfData,
@@ -116,6 +139,7 @@ const TurfUpdation = () => {
     });
   };
 
+  // Function to handle existing turf updation
   const handleTurfUpdation = async (e) => {
     dispatch(setLoader(true))
     e.preventDefault();

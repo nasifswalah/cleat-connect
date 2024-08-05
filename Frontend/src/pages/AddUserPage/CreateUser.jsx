@@ -1,14 +1,29 @@
+// Import the neccessary hooks and components
 import React, { useState } from "react";
-import { ErrorToast, successToast } from "../../constants/toast.js";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import ErrorToast and successToast to manage notifications 
+import { ErrorToast, successToast } from "../../constants/toast.js";
+
+// import setLoader action creator from user slice 
 import { setLoader } from "../../redux/userSlice.js";
 
 const CreateUser = () => {
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch();
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Destructuring darkMode from the user slice of Redux state
   const { darkMode } = useSelector((state) => state.user);
+
+  // useState hook to manage user details
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -18,6 +33,7 @@ const CreateUser = () => {
     role: "",
   });
 
+  // Function to handle the changes in input fields
   const handleChange = (e) => {
     setUserData({
       ...userData,
@@ -25,6 +41,7 @@ const CreateUser = () => {
     });
   };
 
+  // Function to handle the user creation
   const handleUserCreation = async (e) => {
     e.preventDefault();
     dispatch(setLoader(true));

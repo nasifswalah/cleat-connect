@@ -1,12 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import cleatLogo from '../../assets/Cleat logo.png'
+// Connecting with LandingPage.css for styles
 import "./LandingPage.css";
+
+// Import the neccessary hooks and components
+import React from "react";
 import { useSelector } from "react-redux";
+
+// Import Link component for navigation
+import { Link } from "react-router-dom";
+
+// Import logo from assets folder
+import cleatLogo from '../../assets/Cleat logo.png'
+
+
 
 
 const LandingPage = () => {
+
+  // Destructuring darkMode from the user slice of Redux state
   const {darkMode} = useSelector((state) => state.user);
+
   return (
     <main>
       <div className={`big-wrapper ${darkMode ? 'dark-mode' : ''}`}>

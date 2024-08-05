@@ -1,27 +1,55 @@
-import axios from "axios";
+// Import with ReviewPage.css for styles
 import "./ReviewPage.css";
+
+// Import the neccessary hooks and components
 import React, { useEffect, useState } from "react";
-import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// import setLoader action creator from user slice 
 import { setLoader } from "../../redux/userSlice.js";
+
+// Import ErrorToast and successToast to manage notifications 
 import { ErrorToast, successToast } from "../../constants/toast";
 
+// Import neccessary icons from react-icons
+import { FaStar } from "react-icons/fa";
+
+
+
 const ReviewPage = () => {
+
+  // Get the params function from useParams hook
   const params = useParams();
+
+  // Initializing a variable for turf id from params
   const turfId = params.turfId;
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch();
+
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { currentUser, darkMode } = useSelector((state) => state.user);
+
+  //useState hook to manage changes whether rating
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  // useState hook to manage new review data
   const [newReview, setNewReview] = useState({
     review: "",
     rating: "",
     postedBy: "",
     postedFor: "",
   });
+
+  // useState hook to manage existing reviews
   const [reviews, setReviews] = useState([]);
 
+  // useEffect hook to fetch existing reviews
   useEffect(() => {
     const fetchReviews = async () => {
       dispatch(setLoader(true));
@@ -43,6 +71,7 @@ const ReviewPage = () => {
     fetchReviews();
   }, []);
 
+  // Function to handle changes whether posting a new review
   const handleReviewPostingChange = (e) => {
     setNewReview({
       ...newReview,
@@ -50,6 +79,7 @@ const ReviewPage = () => {
     });
   };
 
+  // Function to handle review posting
   const handleReviewPosting = async (e) => {
     dispatch(setLoader(true));
     try {

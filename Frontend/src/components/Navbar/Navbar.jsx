@@ -1,19 +1,35 @@
-import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
-import logo from "../../assets/Cleat logo.png";
+// Import with Navbar.css for styles
 import "./Navbar.css";
+
+// Import the necessary hooks and components from React and React Redux
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+// Import the Link and Outlet components from react-router-dom for navigation and nested routing
+import { Link, Outlet } from "react-router-dom";
+
+// Import the icons and logo from assets folder 
+import logo from "../../assets/Cleat logo.png";
 import bar from "../../assets/bar.svg";
 import closeIcon from "../../assets/close.svg";
-import { useDispatch, useSelector } from "react-redux";
 import { setDarkMode } from "../../redux/userSlice";
 import { FaRegMoon } from "react-icons/fa";
 
 const Navbar = () => {
+
+  // Get the dispatch function from the Redux store to dispatch actions
   const dispatch = useDispatch();
+
+  // Destructuring currentUser and darkMode from the user slice of Redux state
   const { currentUser, darkMode } = useSelector((state) => state.user);
+
+  // useState hook to manage the changes in responsiveness of navigation bar
   const [modeChanger, setModeChanger] = useState(false);
+
+  // useState hook to manage the changes in navbar whether scrolling 
   const [scrollEffect, setScrollEffect] = useState();
 
+  // Method to handle the changes in navbar whether scrolling
   const handleScrollEffect = () => {
     if (window.scrollY >= 70) {
       if( darkMode === true){

@@ -1,10 +1,17 @@
 import React from 'react'
-import collage from '../../assets/collage--2.png'
+
+// Connecting with AboutPage.css to access the styles
 import './AboutPage.css'
+
+// Import the useSelector from react-redux
 import { useSelector } from 'react-redux'
 
-const AboutPage = () => {
+// Import the neccessary image from assets folder
+import collage from '../../assets/collage--2.png'
 
+const AboutPage = () => {
+  
+  // Destructuring darkMode from user slice 
   const { darkMode } = useSelector((state) => state.user);
   return (
     <>

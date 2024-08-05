@@ -1,18 +1,35 @@
-import React, { useEffect, useState } from "react";
+// Connecting with ManageBookings.css for styles
 import "./ManageBookings.css";
+
+// Import the neccessary hooks and components
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
 import axios from "axios";
+
+// import setLoader action creator from user slice
 import { setLoader } from "../../redux/userSlice.js";
+
+// Import ErrorToast and successtoast to manage notifications
 import { ErrorToast, successToast } from "../../constants/toast";
+
+// Import neccessary icons from react-icons
 import { FaCircleCheck } from "react-icons/fa6";
 import { IoIosCloseCircle } from "react-icons/io";
 
 const ManageBookings = () => {
+
+  // Get the dispatch function from useDispatch hook  
   const dispatch = useDispatch();
+
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { darkMode, currentUser } = useSelector((state) => state.user);
 
+  // useState hook to manage bookings data
   const [bookings, setBookings] = useState([]);
 
+  // useEffect hook to retrieve booking data 
   useEffect(() => {
     const fetchBookings = async () => {
       dispatch(setLoader(true));
@@ -35,6 +52,7 @@ const ManageBookings = () => {
     fetchBookings();
   }, []);
 
+  // Function to handle booking confirmation e-mail
   const handleConfirmation = async (booking) => {
     const subject = 'Booking Confirmation Details';
     const content = `Your booking confirmed by the turf manager.
@@ -64,6 +82,7 @@ const ManageBookings = () => {
     }
   };
   
+  // Function to handle booking cancellation e-mail
   const handleCancellationMail = async (booking) => {
     const subject = 'Booking Cancellation Details';
     const content = `Your booking cancelled by the turf manager.
@@ -89,6 +108,7 @@ const ManageBookings = () => {
     }
   };
 
+  // Function to handle booking cancellation
   const handleCancellation = async (booking) =>{
     dispatch(setLoader(true))
     try {

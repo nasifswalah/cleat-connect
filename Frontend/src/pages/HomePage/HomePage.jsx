@@ -1,5 +1,20 @@
-import React, { useEffect, useState } from "react";
+// Connecting with HomePage.css for styles
 import "./HomePage.css";
+
+// Import the neccessary hooks and components
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import Link component for navigation
+import { Link } from "react-router-dom";
+
+// Import ErrorToast to manage notifications 
+import { ErrorToast } from "../../constants/toast";
+
+// Import neccessary images and icons from assets folder
 import AdImage1 from '../../assets/Ad1.png'
 import AdImage2 from '../../assets/Ad2.png'
 import AdImage3 from '../../assets/Ad3.png'
@@ -12,17 +27,17 @@ import linkdinIcon from "../../assets/linkdin.svg"
 import facebookIcon from "../../assets/facebook.svg"
 import twitterIcon from "../../assets/twitter.svg"
 import instagramIcon from "../../assets/instagram.svg"
-import { ErrorToast } from "../../constants/toast";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useSelector } from "react-redux";
-
 
 
 const HomePage = () => {
-  const [turfData, setTurfData] = useState([]);
+ 
+  // Destructuring darkMode from the user slice of Redux state
   const { darkMode } = useSelector((state) => state.user);
 
+  // useState hook to manage various turf data
+  const [turfData, setTurfData] = useState([]);
+
+  // useEffect hook to retrive turf data 
   useEffect(() => {
     const fetchUpdates = async () => {
       try {

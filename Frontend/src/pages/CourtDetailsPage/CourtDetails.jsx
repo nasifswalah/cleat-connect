@@ -1,30 +1,62 @@
-import React, { useEffect, useState } from "react";
+// Import with CourtDetails.css for styles
 import "./CourtDetails.css";
-import facebookIcon from "../../assets/facebook.svg";
-import instagramIcon from "../../assets/instagram.svg";
-import Navbar from "../../components/Navbar/Navbar";
-import { ErrorToast, successToast } from "../../constants/toast";
+
+// Import the neccessary hooks and components
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TIMINGS } from "../../constants/timings.js";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import ErrorToast and successToast to manage notifications 
+import { ErrorToast, successToast } from "../../constants/toast";
+
+// Import the timing data
+import { TIMINGS } from "../../constants/timings.js";
+
+// import setLoader action creator from user slice 
 import { setLoader } from "../../redux/userSlice.js";
 
 const CourtDetails = () => {
+
+  // Get the params function from useParams hook
   const params = useParams();
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch()
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Initializing variable with current date
   const today = new Date().toISOString().split("T")[0];
 
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { currentUser,darkMode } = useSelector((state) => state.user);
 
+  // useState hook to manage the opening and closing of booking modal
   const [openBookingModal, setOpenBookingModal] = useState(false);
+
+  // useState hook to manage the opening and closing of slot modal
   const [openSlotModal, setOpenSlotModal] = useState(false);
-  const [selectedTurfData, setSelectedTurfData] = useState({});
-  const [selectedSlots, setSelectedSlots] = useState([]);
-  const [timings, setTimings] = useState(TIMINGS);
-  const [openSlotList, setOpenSlotList] = useState(false);
+
+  // useState hook to manage the opening and closing of message modal
   const [openMessageModal, setOpenMessageModal] = useState(false);
+
+  // useState hook to store and manage the selected turf data
+  const [selectedTurfData, setSelectedTurfData] = useState({});
+
+  // useState hook to store and manage the slected slots data
+  const [selectedSlots, setSelectedSlots] = useState([]);
+
+  // useState hook to store and manage the constant timings
+  const [timings, setTimings] = useState(TIMINGS);
+
+  // useState hook to manage the opening and closing of slot selection list
+  const [openSlotList, setOpenSlotList] = useState(false);
+  
+  // useState hook to store and manage the slot booking data
   const [slotData, setSlotData] = useState({
     startDate: "",
     endDate: "",
@@ -32,10 +64,17 @@ const CourtDetails = () => {
     turfId: "",
     selectedSlots: "",
   });
+
+  // useState hook to store and manage available slots data
   const [availableSlots, setAvailableSlots] = useState([]);
+
+  // useState hook to manage the date in calender
   const [bookingDate, setBookingDate] = useState(today);
+
+  // useState hook to manage booked slots 
   const [bookedSlots, setBookedSlots] = useState([]);
 
+  // useEffect hook to retrive the selected turf data
   useEffect(() => {
     const fetchUpdates = async () => {
       dispatch(setLoader(true))
@@ -58,6 +97,7 @@ const CourtDetails = () => {
     fetchUpdates();
   }, []);
 
+  // useEffect hook to retrive available slots
   useEffect(() => {
     const fetchSlots = async () => {
       try {
@@ -77,6 +117,7 @@ const CourtDetails = () => {
     fetchSlots();
   }, [bookingDate]);
 
+  // Function to handle slot selection whether adding new slot
   const handleSlotSelection = (e, slot) => {
     e.stopPropagation();
     setSelectedSlots([...selectedSlots, slot]);
@@ -87,6 +128,7 @@ const CourtDetails = () => {
     console.log(selectedSlots);
   };
 
+  // function to handle new slot creation
   const handleSlotCreation = async (e) => {
     e.preventDefault();
     dispatch(setLoader(true))
@@ -120,6 +162,7 @@ const CourtDetails = () => {
     }
   };
 
+  // Function to handle changes in slot creation
   const handleChange = (e) => {
     setSlotData({
       ...slotData,
@@ -127,6 +170,7 @@ const CourtDetails = () => {
     });
   };
 
+  // Function to handle slot selection whether booking a new slot
   const handleSlotBooking = (slot) => {
     if (bookedSlots.find((ele) => ele._id === slot._id)) {
       const temp = bookedSlots.filter((ele) => ele._id !== slot._id);
@@ -136,6 +180,7 @@ const CourtDetails = () => {
     }
   };
 
+  // Function to handle slot booking
   const handleBooking = async (e) => {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -149,7 +194,7 @@ const CourtDetails = () => {
     if (bookedSlots.length === 0){
       return ErrorToast('Select a slot');
     }
-    // creating a new order
+
     const slotIds = bookedSlots.map((ele) => {
       return ele._id;
     });
@@ -232,12 +277,14 @@ const CourtDetails = () => {
     });
   }
 
+  // Function to handle the cancellation of slot creation
   const handleSlotCreationCancellation = () => {
     setOpenSlotModal(false);
     setSelectedSlots([]);
     setTimings(TIMINGS);
   }
 
+  // Function to handle the cancellation of slot booking
   const handleBookingCancellation = () => {
     setOpenBookingModal(false);
     setBookedSlots([]);

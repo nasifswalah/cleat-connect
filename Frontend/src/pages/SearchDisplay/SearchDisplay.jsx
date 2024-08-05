@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+// Import with SearchDisplay.css for styles
 import "./SearchDisplay.css";
-import searchIcon from "../../assets/searchIcon.svg";
-import axios from "axios";
-import { ErrorToast } from "../../constants/toast";
-import { Link } from "react-router-dom";
-import { setLoader } from "../../redux/userSlice";
+
+// Import the neccessary hooks and components
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// Import Link component for navigation
+import { Link } from "react-router-dom";
+
+// import setLoader action creator from user slice
+import { setLoader } from "../../redux/userSlice";
+
+// Import ErrorToast to manage notifications 
+import { ErrorToast } from "../../constants/toast";
+
+// Import neccessary icons from assets folder
+import searchIcon from "../../assets/searchIcon.svg";
+
+
 const SearchDisplay = () => {
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch();
+  
+  // useState hook to manage search result
   const [searchResult, setSearchResult] = useState([]);
+
+  // useState hook to manage search input
   const [searchInput, setSearchInput] = useState();
 
+  // Function to handle search result
   const handleSearchResult = async () => {
     dispatch(setLoader(true));
     try {

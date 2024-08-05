@@ -1,22 +1,41 @@
-import React from "react";
+// Connecting with 
 import "./Profile.css";
+
+// Import neccessary hooks and components
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
+import axios from "axios";
+
+// import action creators from user slice
+import {signOutUserStart, signOutUserSuccess, signOutUserFailure} from '../../redux/userSlice.js'
+
+// Import ErrorToast and successtoast to manage notifications
+import { ErrorToast, successToast } from "../../constants/toast";
+
+// Import neccessary icons from assets folder
 import addUserIcon from "../../assets/addUserIcon.svg"
 import addNewCourtIcon from "../../assets/addNewCourt.svg"
 import bookingsIcon from "../../assets/bookings.svg"
 import manageIcon from "../../assets/manageIcon.svg"
 import logoutIcon from "../../assets/logoutIcon.svg"
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {signOutUserStart, signOutUserSuccess, signOutUserFailure} from '../../redux/userSlice.js'
-import { ErrorToast, successToast } from "../../constants/toast";
-import axios from "axios";
+
+
 
 const Profile = () => {
 
+  // Destructuring darkMode and currentUser from the user slice of Redux state
   const { currentUser, darkMode } = useSelector((state) => state.user);
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Get the dispatch function from useDispatch hoo
   const dispatch = useDispatch();
 
+  // Function to handle log-out
   const handleLogout = async () => {
     try {
       dispatch(signOutUserStart());

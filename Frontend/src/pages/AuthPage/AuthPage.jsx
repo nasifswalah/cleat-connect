@@ -1,27 +1,48 @@
+// Import with AuthPage.css for styles
+import "./AuthPage.css";
+
+// Import the neccessary hooks and components
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
+import axios from 'axios'
+
+// Import neccessary icons from assets folder
 import userIcon from "../../assets/userIcon.svg";
 import lockIcon from "../../assets/lockIcon.svg";
 import emailIcon from "../../assets/emailIcon.svg";
 import phoneIcon from "../../assets/phoneIcon.svg";
 import football from "../../assets/football.svg";
 import soccer from "../../assets/soccer.svg";
-import "./AuthPage.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+// import sign-in action creators from user slice 
 import {
   signinStart,
   signinSuccess,
   signinFailure,
 } from "../../redux/userSlice";
+
+// Import ErrorToast and successToast to manage notifications 
 import { ErrorToast, successToast } from "../../constants/toast";
-import axios from 'axios'
+
 
 const AuthPage = () => {
+
+  // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Get the dispatch function from useDispatch hook
   const dispatch = useDispatch();
+
+  // Destructuring darkMode from the user slice of Redux state
   const { darkMode } = useSelector((state) => state.user);
 
+  // useState hook to manage the changes in responsiveness of the page
   const [modeChanger, setModeChanger] = useState("");
+
+  // useState hook to store and manage user details for sign-up 
   const [signUpData, setSignUpData] = useState({
     name: '',
     email: '',
@@ -30,12 +51,14 @@ const AuthPage = () => {
     contactNumber: '',
     role: '',
   });
+
+  // useState hook to store and manage user details for sign-in 
   const [signInData, setSignInData] = useState({
     email:'',
     password:'',
   });
   
-
+  // Function to handle the changes in input fields of sign-up form
   const handleSignUpChange = (e) => {
     setSignUpData({
       ...signUpData,
@@ -43,6 +66,7 @@ const AuthPage = () => {
     });
   };
 
+  // Function to handle the changes in input fields of sign-in form
   const handleSignInChange = (e) => {
     setSignInData({
       ...signInData,
@@ -50,6 +74,7 @@ const AuthPage = () => {
     });
   };
 
+  //Function to handle sign-up
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
@@ -69,6 +94,7 @@ const AuthPage = () => {
     }
   };
 
+  ////Function to handle sign-in
   const handleSignIn = async (e) => {
     e.preventDefault();
     dispatch(signinStart());
@@ -88,6 +114,7 @@ const AuthPage = () => {
       ErrorToast(error.response.data.message)
     }
   };
+  
   return (
     <>
       <div className={`main-conatiner ${modeChanger} ${darkMode ? 'dark-mode' : ''}`}>

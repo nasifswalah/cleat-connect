@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from "react";
+// Import with Bookings.css for styles
 import "./Bookings.css";
+
+// Import the neccessary hooks and components
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+// Import axios for making HTTP requests
 import axios from "axios";
+
+// Import ErrorToast and successToast to manage notifications 
 import { ErrorToast } from "../../constants/toast";
 
 
 const Bookings = () => {
+
+  // Destructuring darkMode from the user slice of Redux state
   const { darkMode } = useSelector((state) => state.user);
 
+  // useState hook to store and manage bookings data
   const [ bookings, setBookings ] = useState([]);
 
+  // useEffect hook to handle retriveing of bookings data 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
