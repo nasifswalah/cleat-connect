@@ -3,7 +3,7 @@ import "./HomePage.css";
 
 // Import the neccessary hooks and components
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Import axios for making HTTP requests
 import axios from "axios";
@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 
 // Import ErrorToast to manage notifications 
 import { ErrorToast } from "../../constants/toast";
+
+// import setLoader action creator from user slice 
+import { setLoader } from "../../redux/generalSlice.js";
 
 // Import neccessary images and icons from assets folder
 import AdImage1 from '../../assets/Ad1.png'
@@ -30,6 +33,9 @@ import instagramIcon from "../../assets/instagram.svg"
 
 
 const HomePage = () => {
+
+  // Get the dispatch function from useDispatch hook
+  const dispatch = useDispatch()
  
   // Destructuring darkMode from the user slice of Redux state
   const { darkMode } = useSelector((state) => state.general);
