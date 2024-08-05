@@ -55,6 +55,7 @@ export const manageBookings = async (req, res, next) => {
     if(bookings.length === 0){
       return next(errorHandler(404, "No bookings yet!"));
     }
+    
 
     res.status(200).json({
       success: true,
@@ -68,10 +69,23 @@ export const manageBookings = async (req, res, next) => {
 export const cancelBooking = async(req, res, next) => {
   try {
     const data = await Bookings.findByIdAndDelete(req.params.id);
-
     if (!data) {
       return next(errorHandler(404, 'Booking not found'));
     }
+
+    const turfId = data.turfId;
+    const turfData = await Turfs.findByIdAndUpdate(turfId, {
+      $pull: { bookings: req.params.id },
+    });
+    if (!turfData) {
+      return next(errorHandler(404, 'Booking not listed yet in turf'));
+    }
+
+    const timeSlotIds = data.timeSlotIds;
+    await Slots.updateMany(
+      { _id: { $in: timeSlotIds } },
+      { $set: { bookedBy: null, orderId: null } }
+    );
     
     res.status(200).json({
       success: true,

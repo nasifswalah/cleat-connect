@@ -32,6 +32,10 @@ export const bookings = async (req, res, next) => {
       paymentStatus: "Pending",
     }).save();
 
+    if (!newBooking) {
+      return next(errorHandler(500,'Try again later'))
+    }
+
     await Turfs.findByIdAndUpdate(turfId, {
       $push: { bookings: newBooking._id },
     });
@@ -87,7 +91,7 @@ export const success = async (req, res, next) => {
     );
     
 
-   await Bookings.updateOne(
+   const updatedData = await Bookings.updateOne(
       { _id: receipt },
       {
         $set: {
@@ -95,10 +99,15 @@ export const success = async (req, res, next) => {
           bookedBy: req.user.email,
           turfId,
           turfName,
+          timeSlotNames,
           bookingDate: new Date(bookingDate),
         },
       }
     );
+
+    if(!updatedData) {
+      return next(errorHandler(404, 'Booking not found'))
+    }
 
 
     res.status(200).json({
