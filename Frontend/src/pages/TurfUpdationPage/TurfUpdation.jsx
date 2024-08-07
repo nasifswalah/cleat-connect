@@ -1,6 +1,6 @@
 // Import the neccessary hooks and components
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { app } from "../../constants/firebase.js";
 
@@ -33,6 +33,9 @@ const TurfUpdation = () => {
 
   // Get the navigate function from useNavigate hook
   const navigate = useNavigate();
+
+  // Get the navigate function from useNavigate hook
+  const dispatch = useDispatch();
 
   // Get the params function from useParams hook
   const params = useParams();
