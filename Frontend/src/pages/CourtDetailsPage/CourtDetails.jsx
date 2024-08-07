@@ -486,7 +486,7 @@ const CourtDetails = () => {
               <div className="turf-creation-form-container">
                 <form className={`${darkMode ? 'dark-mode' : ''}`}>
                 <div>Your booking completed successfully, You will get an email including booking details</div>
-                <input type="button" value='Ok' className="btn" onClick={() => setOpenMessageModal(false)}/>
+                <input type="button" value='Ok' className="btn" onClick={() => {setOpenMessageModal(false); location.reload()}}/>
                 </form>
               </div>
             </div>
