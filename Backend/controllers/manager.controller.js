@@ -16,8 +16,9 @@ export const createTimeSlots = async (req, res, next) => {
 
     let from = new Date(new Date(startDate).setUTCHours(0,0,0,0));
     let to = new Date(new Date(endDate).setUTCHours(0,0,0,0));
-    const slotObjects = [];
+    let slotObjects = [];
 
+    const existingSlots = await Slots.find({turfId});
     
     while (from <= to) {
       for (let slotData of selectedSlots) {
@@ -29,11 +30,24 @@ export const createTimeSlots = async (req, res, next) => {
           },
           cost,
           turfId,
-        });
+        });          
       }
       from.setDate(from.getDate()+1);
     }
+    existingSlots.forEach(element => {
+      const prevDate = new Date(element.date).toLocaleDateString();
+      const prevSlotId = element.slot.id;
+      slotObjects.forEach(slot => {
+        const newDate = new Date(slot.date).toLocaleDateString();
+        const newSlotId = slot.slot.id;
+        if(prevDate === newDate && prevSlotId === newSlotId) {
+          return next(errorHandler(409, `${slot.slot.name} is already created `))
+        }
+      })
+    });
     const newSlots = await Slots.insertMany(slotObjects);
+
+
     res.status(201).json({
       success: true,
       message: "New slots added successfully",

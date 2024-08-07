@@ -117,7 +117,7 @@ const ReviewPage = () => {
         />
         <div >
           {[...Array(5)].map((star, index) => {
-            const currentRating = index + 1;
+            let currentRating = index + 1;
             return (
               <label>
                 <input
@@ -161,8 +161,6 @@ const ReviewPage = () => {
                   className="star"
                   size={20}
                   color="#ffc107" 
-                  onMouseEnter={() => setHover(currentRating)}
-                  onMouseLeave={() => setHover(null)}
                 />
               </label>
             );

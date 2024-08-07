@@ -127,7 +127,6 @@ const CourtDetails = () => {
     const newTimes = timings.filter((element) => element.id !== slot.id);
     setTimings(newTimes);
     setOpenSlotList(false);
-    console.log(selectedSlots);
   };
 
   // function to handle new slot creation
@@ -157,10 +156,21 @@ const CourtDetails = () => {
       }
       dispatch(setLoader(false))
       successToast(data.message);
+      setSlotData({
+        startDate: "",
+        endDate: "",
+        cost: "",
+        turfId: "",
+        selectedSlots: "",
+      });
+      setSelectedSlots([]);
+      setOpenSlotList(false);
       setOpenSlotModal(false);
     } catch (error) {
       dispatch(setLoader(false))
       ErrorToast(error.response.data.message);
+      console.log(error);
+      
     }
   };
 
@@ -283,6 +293,7 @@ const CourtDetails = () => {
   const handleSlotCreationCancellation = () => {
     setOpenSlotModal(false);
     setSelectedSlots([]);
+    setOpenSlotList(false);
     setTimings(TIMINGS);
   }
 
@@ -436,7 +447,7 @@ const CourtDetails = () => {
                     onChange={handleChange}
                   />
                   <p
-                    onClick={() => setOpenSlotList(true)}
+                    onClick={() => setOpenSlotList(!openSlotList)}
                     className="slot-selector"
                   >
                     Select slots
@@ -453,7 +464,7 @@ const CourtDetails = () => {
 
                   <div className="slot-display">
                     {selectedSlots.map((slot) => (
-                      <span className="slot-span">{slot.name}</span>
+                      <span className="slot-span" onClick={(e) => {setSelectedSlots((prev) => prev.filter((listing) => listing.id !== slot.id))}}>{slot.name}</span>
                     ))}
                   </div>
                   <input type="submit" className="btn create" value="Create" />
